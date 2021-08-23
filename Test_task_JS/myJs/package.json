@@ -1,0 +1,12 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "new_10(102).js",
+  "scripts": {
+	"start": "node new_10(102).js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "K.A.A",
+  "license": "ISC"
+}
