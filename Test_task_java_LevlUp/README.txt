@@ -14,6 +14,7 @@
 	First_name VARCHAR(128) NOT NULL,
 	Last_name VARCHAR(128) NOT NULL,
 	Passport_serial INTEGER NOT NULL,
+	Mail VARCHAR(255) NOT NULL,
 	Date_of_visit DATE NOT NULL,
 	To_which_dotor VARCHAR(128),
 	Doctor_specialization VARCHAR(128) NOT NULL
