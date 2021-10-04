@@ -10,7 +10,7 @@
 
 	CREATE TABLE patient
 	(
-	ID_patient PRIMARY KEY,
+	Id PRIMARY KEY,
 	First_name VARCHAR(128) NOT NULL,
 	Last_name VARCHAR(128) NOT NULL,
 	Passport_serial INTEGER NOT NULL,
@@ -22,7 +22,7 @@
 
 	CREATE TABLE doctor
 	(
-	Id_doctor PRIMARY KEY,
+	Id PRIMARY KEY,
 	Last_name VARCHAR(128) NOT NULL,
 	First_name VARCHAR(128) NOT NULL,
 	Specialization VARCHAR(128) NOT NULL,
@@ -31,11 +31,37 @@
 
 	CREATE TABLE timetable
 	(
-	Number_of_patient PRIMARY KEY,
-	Id_doctor BIGINT NOT NULL,
+	Id PRIMARY KEY,
+	Patient_id,				
+	Doctor_id BIGINT NOT NULL,
 	Date DATE NOT NULL,
-	Doctor_last_name VARCHAR(128) NOT NULL,
-	FOREIGN KEY (Number_of_patient) REFERENCES patient (ID_patient)
+	FOREIGN KEY (Patient_id) REFERENCES patient (Id),
+	FOREIGN KEY (Doctor_id) REFERENCES doctor (Id)
 	);
 	
+	CREATE TABLE disease_history
+	(
+	Id PRIMARY KEY,
+	Patient_id BIGINT NOT NULL,
+	Doctor_id BIGINT NOT NULL,
+	Diagnosis VARCHAR(2550),
+	Recommendations TEXT,
+	FOREIGN KEY (patient_id) REFERENCES patient (Id),
+	FOREIGN KEY (doctor_id) REFERENCES doctor (Id)
+	);
 	
+	Структура для хранеия свободных и записаных дней (требуется сериализовать)
+	
+	boolean [][][] month = new boolean [12][][];
+		month[0] = new boolean[31][20]; //jn
+		month[1] = new boolean[28][20]; //fb
+		month[2] = new boolean[31][20]; //mr
+		month[3] = new boolean[30][20]; //ap
+		month[4] = new boolean[31][20]; //mi
+		month[5] = new boolean[30][20]; //ij
+		month[6] = new boolean[31][20]; //ij
+		month[7] = new boolean[31][20]; //aw
+		month[8] = new boolean[30][20]; //se
+		month[9] = new boolean[31][20]; //oc
+		month[10] = new boolean[30][20]; //no
+		month[11] = new boolean[31][20]; //de
