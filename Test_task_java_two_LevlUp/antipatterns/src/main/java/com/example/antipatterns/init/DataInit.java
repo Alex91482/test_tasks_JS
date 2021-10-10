@@ -45,14 +45,26 @@ public class DataInit implements ApplicationRunner{
         }
         if(count1 == 0){
             Date date1 = dateFormat.parse("2021-10-07");
-            Patient p1= new Patient("Smith","Stan",0000000007,"american.dad@mail.com",
+            Patient p1= new Patient("Smith","Stan",0000000007,"stan.smith@americanded.com",
                     date1,"Therapist","Jhon Snow");
             Date date2 = dateFormat.parse("2021-10-08");
-            Patient p2= new Patient("Sponge","Bob",0002300321,"spnge.bob@mail.com",
+            Patient p2= new Patient("Sponge","Bob",0002300321,"spnge.bob@bikinibottom.com",
                     date2,"Therapist","Madden Richard");
+            Date date3 = dateFormat.parse("2021-10-09");
+            Patient p3= new Patient("Star","Patrick",0002000222,"patrick.star@bikinibottom.com",
+                    date3,"Therapist","Madden Richard");
+            Date date4 = dateFormat.parse("2021-10-10");
+            Patient p4= new Patient("Sandy","Chicks",0003000333,"sandy.chicks@bikinibottom.com",
+                    date4,"Therapist","Madden Richard");
+            Date date5 = dateFormat.parse("2021-10-11");
+            Patient p5= new Patient("Squidward","Tentacle",0000000004,"squidward.tentacle@bikinibottom.com",
+                    date5,"Therapist","Madden Richard");
 
             patientDAO.save(p1);
             patientDAO.save(p2);
+            patientDAO.save(p3);
+            patientDAO.save(p4);
+            patientDAO.save(p5);
         }
     }
 }

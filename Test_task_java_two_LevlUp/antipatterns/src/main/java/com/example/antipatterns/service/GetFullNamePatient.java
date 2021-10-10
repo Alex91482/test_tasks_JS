@@ -31,6 +31,20 @@ public class GetFullNamePatient implements PrintInterface{   //данный кл
         return "Oops...";
     }
 
+    public int calculator(int x, char sign, int y){ //нарушение принципа SPR т.к. калькулятор в данном классе не уместен
+        switch (sign){
+            case '+' :
+                return x + y;
+            case '-' :
+                return x - y;
+            case '*' :
+                return x * y;
+            case '/' :
+                return x / y;
+        }
+        return 0;
+    }
+
     public void stringToAscii(){ //в данном случе имеем нарушение принципа разделения интерфейса ISP
         //этот метод тут не нужен но поскольку он есть в интерфейсе то требуется его "реализация"
     }

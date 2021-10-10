@@ -2,7 +2,7 @@ package com.example.antipatterns.controller;
 
 import com.example.antipatterns.dao.PatientDAO;
 import com.example.antipatterns.entity.Patient;
-import com.example.antipatterns.service.GetFullNamePatient;
+
 import com.example.antipatterns.service.GetFullNamePatientASCII;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,14 +16,27 @@ public class PatientController { //Принцип инверсии зависи�
     PatientDAO patientDAO;
 
     @ResponseBody
-    @RequestMapping("/get-name-patient")
+    @RequestMapping("/get-name-and-id-patient")
     public String index() {
         Iterable<Patient> all = patientDAO.findAll();
 
         GetFullNamePatientASCII gfnpa = new GetFullNamePatientASCII();
 
         StringBuilder sb = new StringBuilder();
-        all.forEach(p -> sb.append(gfnpa.getFullNamePatient(p) + "<br>"));
+        all.forEach(p -> sb.append("Name: " + gfnpa.getFullNamePatient(p) +", id: " + p.getId() + "<br>"));
+
+        return sb.toString();
+    }
+
+    @ResponseBody
+    @RequestMapping("/get-name-patient")
+    public String index1() {
+        Iterable<Patient> all = patientDAO.findAll();
+
+        GetFullNamePatientASCII gfnpa = new GetFullNamePatientASCII();
+
+        StringBuilder sb = new StringBuilder();
+        all.forEach(p -> sb.append("Name: " + gfnpa.getFullNamePatient(p)  + "<br>"));
 
         return sb.toString();
     }
