@@ -3,16 +3,15 @@ package com.example.hospitalregistration.service.patientservice;
 
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PatientServiceImpl implements PatientService{
 
     private static final List<Date> PATIENT_REPOSITORY_LIST = new ArrayList<>(); //Хранилище зарезервированых дат
+    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override //создать запись
     public void createRecord(Date date){
@@ -21,10 +20,28 @@ public class PatientServiceImpl implements PatientService{
         }
     }
 
+    @Override
+    public List<Date> getRecord(String dateFromJs){ //вернуть время для конкретного дня
+        List<Date> list = new ArrayList<>();
+        try {
+            Date date=formater.parse(dateFromJs);
+            for(int i=0; i<PATIENT_REPOSITORY_LIST.size(); i++) {
+                Date x = PATIENT_REPOSITORY_LIST.get(i);
+                if (x.getYear() == date.getYear() &
+                        x.getMonth() == date.getMonth() &
+                        x.getDay() == date.getDay())
+                {
+                    list.add(x);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
     @Override //вернуть все даты записей
     public List<Date> allRecord(){
-        //List<Date> list = new ArrayList<>(PATIENT_REPOSITORY_LIST.size());
-        //Collections.copy(list, PATIENT_REPOSITORY_LIST);
         List<Date> list = new ArrayList<>();
         for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
             Date x = PATIENT_REPOSITORY_LIST.get(i);

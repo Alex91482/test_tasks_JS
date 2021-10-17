@@ -31,11 +31,13 @@ public class DataInit implements ApplicationRunner {
             Date d2 = formater.parse("2021-10-19 16:40");
             Date d3 = formater.parse("2021-10-19 15:20");
             Date d4 = formater.parse("2021-10-19 15:40");
+            Date d5 = formater.parse("2021-11-01 16:20");
 
             patientService.createRecord(d1);
             patientService.createRecord(d2);
             patientService.createRecord(d3);
             patientService.createRecord(d4);
+            patientService.createRecord(d5);
         }
         count++;
     }

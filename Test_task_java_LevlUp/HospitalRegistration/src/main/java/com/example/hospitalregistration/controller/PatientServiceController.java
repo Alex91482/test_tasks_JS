@@ -2,14 +2,17 @@ package com.example.hospitalregistration.controller;
 
 
 import com.example.hospitalregistration.service.patientservice.PatientService;
-import com.example.hospitalregistration.entity.Patient;
+import com.example.hospitalregistration.entity.*;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,27 +37,19 @@ public class PatientServiceController {
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public String patientFrom(Model model){
-        model.addAttribute("page",new Patient());
+        model.addAttribute("patient1",new Patient1());
         return "page";
     }
 
-    @RequestMapping(value = "/allRecord",method = RequestMethod.GET)
+    @RequestMapping(value = "/getRecord/{dateFromJs}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> testGetRecord(@PathVariable(name = "dateFromJs") String str){
+        List<Date> list = patientService.getRecord(str);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/allRecord",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnRecord(){
-
         List<Date> list = patientService.allRecord(); //запрос на список дат
-
-        /*List<JSONObject> entities = new ArrayList<>();
-        for(Date date : list){
-            JSONObject entity = new JSONObject();
-            entity.put("reserved ", date);
-            entities.add(entity);
-        }*/
-        JSONObject entities = new JSONObject();
-        for(int i=0;i<list.size();i++){
-        entities.put("reserved",list.get(i));
-        System.out.println(list.get(i));
-        }
-
-        return new ResponseEntity<Object>(entities, HttpStatus.OK);
+        return new ResponseEntity<Object>(list, HttpStatus.OK);
     }
 }
