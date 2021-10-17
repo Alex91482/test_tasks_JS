@@ -73,7 +73,7 @@ function reserved(jsonDate, dateArrTime){
 
 function oneClick(time){ //после нажати я на время возвращает строчку со временем
     //return time;
-    console.log(time);
+    console.log("Тут должен был быть вызов сохранения " + time);
 }
 
 function tableStyle(){ //задает стиль таблицы

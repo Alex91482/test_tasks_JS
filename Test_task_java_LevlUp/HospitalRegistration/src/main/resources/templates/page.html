@@ -22,6 +22,12 @@
   </style>
 </head>
 <body>
+
+<!--<script src="../JS/tableConst.js"></script>-->
+<script type="text/javascript" th:src="@{/js//tableConst.js"></script>
+
+<p id="style"></p>
+
 <div class="container">
   <div class="left">
     <h1>Registration</h1>
@@ -31,13 +37,19 @@
       <p>Last name:       <input type="text" th:field="*{lastName}" /></p>
       <p>Passport serial: <input type="number" th:field="*{passportSerial}" /></p>
       <p>Mail:            <input type="text" th:field="*{mail}" /></p>
-      <!--<p>Date of visit:   <input type="date" th:field="*{dateOfVisit}" /></p>-->
-      <p>Date of visit:   <input type="date" th:field="*{monthDay}" />
+      <p>Date of visit:   <input type="date" id="date" required/></p>
+      <!--<p>Date of visit:   <input type="date" th:field="*{monthDay}" />-->
       <p>Doctor special.: <input type="text" th:field="*{doctorSpetialisation}" /></p>
       <p>To which doctor: <input type="text" th:field="*{toWhichDoctor}" /></p>
-      <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+      <!--<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+      <!--<p><input type="" value="Next" /></p>-->
+      <p>
+        <!--<button onclick="setDateTime(document.getElementById('date'));">Next</button>-->
+      </p>
+      <p><input type="reset" value="Reset" /></p>
     </form>
   </div>
+
   <div class="right">
     <h1>Timing of reception </h1>
     <p id="content"></p>
