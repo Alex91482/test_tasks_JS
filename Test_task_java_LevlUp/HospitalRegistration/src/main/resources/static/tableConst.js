@@ -21,7 +21,7 @@ function getTable(jsonDate){
 
 function setDateTime(date){ //функция получает год-месяц-день в формате стринг
     //формируем запрос к серверу
-    let req = 'http://localhost:8081/getRecord/' + date.value;
+    let req = 'http://localhost:8080/getRecord/' + date.value;
     let requestURL = req;
     //console.log(req);
     let request = new XMLHttpRequest();

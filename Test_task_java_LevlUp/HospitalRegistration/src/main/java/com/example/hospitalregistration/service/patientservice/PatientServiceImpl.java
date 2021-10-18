@@ -22,7 +22,7 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public List<Date> getRecord(String dateFromJs){ //вернуть время для конкретного дня
-        List<Date> list = new ArrayList<>();
+        List<Date> list = new ArrayList<>(); //дата в формате 2021-10-19
         try {
             Date date=formater.parse(dateFromJs);
             for(int i=0; i<PATIENT_REPOSITORY_LIST.size(); i++) {
