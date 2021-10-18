@@ -21,17 +21,19 @@ function getTable(jsonDate){
 
 function setDateTime(date){ //функция получает год-месяц-день в формате стринг
     //формируем запрос к серверу
-    let req = 'http://localhost:8081/getRecord/' + date;
+    let req = 'http://localhost:8081/getRecord/' + date.value;
     let requestURL = req;
+    //console.log(req);
     let request = new XMLHttpRequest();
-    request.open('GET', requestURL);
+    //request.open('GET', requestURL);
+    request.open('POST', requestURL);
     request.responseType = 'json';
     request.send();
 
     request.onload = function () {
         let jsonDate = request.response;
         document.getElementById('style').innerHTML = tableStyle();
-        document.getElementById('content').innerHTML=getTableHtml(jsonDate);
+       document.getElementById('content').innerHTML=getTableHtml(jsonDate);
     }
 }
 

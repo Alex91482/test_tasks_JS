@@ -12,10 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
 import java.text.SimpleDateFormat;
@@ -36,6 +33,7 @@ public class PatientServiceController {
         this.patientService = patientService;
     }
 
+    @CrossOrigin
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public String patientFrom(Model model){
         model.addAttribute("patient1",new Patient1());
@@ -47,6 +45,7 @@ public class PatientServiceController {
         model.addAttribute("patient1", patient);
         return "page";*/
 
+    @CrossOrigin//(origins = "http://localhost:8080")
     @RequestMapping(value = "/getRecord/{dateFromJs}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> testGetRecord(@PathVariable(name = "dateFromJs") String str){
         List<Date> list = patientService.getRecord(str);
