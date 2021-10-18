@@ -34,7 +34,7 @@ public class Patient1 {
     @Getter @Setter
     private String monthDay;
 
-    private String time;
+    //private String time; // ...?
 
     public Patient1(){
     }
