@@ -42,13 +42,15 @@ function getDateTime(){ //функция где происходит конкт�
 }
 
 function getTableHtml(jsonDate){ //создание таблицы с свободными/зарезервированными данными
-
+    //console.log(jsonDate);
     let html = '<table id = "tabl">';
     html += '<thead><tr><th>' + 'Time' + '</th></tr></thead>';
     html += '<tbody>';
     for(let i = 0; i < arrTime.length; i++){
         let time = arrTime[i];
-        html += reserved(jsonDate,time);
+        html += '<tr>';
+        html += reserved(jsonDate,time); //метод создающий ячейку таблицы
+        html += '</tr>';
     }
     html += '</tbody></table>';
     html += '<p><input type="submit" value="Submit" />';
@@ -57,19 +59,21 @@ function getTableHtml(jsonDate){ //создание таблицы с свобо
 
 function reserved(jsonDate, dateArrTime){
 
-    let html = '';
+    let html = '<tr>';
     for(let i = 0; i < jsonDate.length; i++){
-        let value = jsonDate[i];
-        if(value == dateArrTime){
+        let value = jsonDate[i]; //тут мы получили массив дат из контролера но это все string
+        let dat = new Date(value);
+        let stringHoursMinutes = dat.getHours() + ":" + dat.getMinutes();
+        if(stringHoursMinutes == dateArrTime){ //полная лажа в текущей дате еще нет
             html += '<td>';
             html += 'reserved';
-            html += '</td>';
+            html += '</td></tr>';
             return html;
         }
     }
     html += '<td onclick="oneClick(this.innerHTML)">';
     html += dateArrTime;
-    html += '</td>';
+    html += '</td></tr>';
     return html;
 }
 
