@@ -53,7 +53,7 @@ function getTableHtml(jsonDate){ //создание таблицы с свобо
         html += '</tr>';
     }
     html += '</tbody></table>';
-    html += '<p><input type="submit" value="Submit" />';
+    //html += '<p><input type="submit" value="Submit" />'; //порядок действий должен быть такой выбираем дату после этого создаетсч недостающая часть формы где добавляется полная дата т.е. год-месяц-день час-минуты
     return html;
 }
 
@@ -64,11 +64,11 @@ function reserved(jsonDate, dateArrTime){
         let value = jsonDate[i]; //тут мы получили массив дат из контролера но это все string
         let dat = new Date(value);
         let stringHoursMinutes = dat.getHours() + ":" + dat.getMinutes();
-        if(stringHoursMinutes == dateArrTime){ //полная лажа в текущей дате еще нет
+        if(stringHoursMinutes == dateArrTime){ //если при переборе списка полученного из репозитория есть хоть какието значения значит будет, совпадение это значит что кто то уже зарегистрирован на эту дату
             html += '<td>';
             html += 'reserved';
             html += '</td></tr>';
-            return html;
+            return html; //возвращаем просто строку без возможности вызова метода создания записи на этот день
         }
     }
     html += '<td onclick="oneClick(this.innerHTML)">';
@@ -78,7 +78,15 @@ function reserved(jsonDate, dateArrTime){
 }
 
 function oneClick(time){ //после нажати я на время возвращает строчку со временем
-    //return time;
+    //
+    //порядок действий должен быть такой выбираем дату после этого создаетсч недостающая часть формы где добавляется полная дата т.е. год-месяц-день час-минуты
+    //<input type="date" id="itDate" th:field="*{monthDay}" />
+    //html += '<p><input type="submit" value="Submit" />';
+
+    //document.getElementById(id).innerHTML = new HTML
+    //document.getElementById(id).attribute = new value
+    //document.getElementById(id).value = new value //наиболее перспективный вариант
+
     console.log("Тут должен был быть вызов сохранения " + time);
 }
 
