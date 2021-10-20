@@ -28,14 +28,17 @@ public class Patient1 {
     @Getter @Setter
     private String toWhichDoctor;
 
-    //@Getter @Setter
+    @Getter @Setter
     private Date dateOfVisit;
 
-    @Getter @Setter
-    private String monthDay;
-
-    //private String time; // ...?
-
-    public Patient1(){
+    public Patient1(String firstName,String lastName,int passportSerial, String mail,
+                    String doctorSpetialisation,String toWhichDoctor,Date dateOfVisit){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.passportSerial=passportSerial;
+        this.mail=mail;
+        this.doctorSpetialisation=doctorSpetialisation;
+        this.toWhichDoctor=toWhichDoctor;
+        this.dateOfVisit=dateOfVisit;
     }
 }
