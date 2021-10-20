@@ -68,7 +68,8 @@ function oneClick(time){ //после нажати я на время возвр
     console.log("Вызов сохранения " + time);
 
     let dateAndTime = globalDate + " " + time;
-    document.getElementById('submit').attribute = dateAndTime;
+    console.log(dateAndTime);
+    document.getElementById('dayTime').value = dateAndTime; //attributes
 
     let attributeDisabl = document.getElementById('submit');
     let getAttributeDisabl=attributeDisabl.getAttribute('disabled');

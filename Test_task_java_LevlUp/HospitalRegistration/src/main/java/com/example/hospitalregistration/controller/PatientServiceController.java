@@ -38,18 +38,11 @@ public class PatientServiceController {
         this.patientService = patientService;
     }
 
-    /*@CrossOrigin
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
-    public String patientFrom(Model model){
-        model.addAttribute("patient1",new Patient1());
-        return "page"; //форма для регистрации
-    }
     @CrossOrigin
-    @RequestMapping(value="/registration", method=RequestMethod.POST)
-    public String greetingSubmit(@ModelAttribute Patient1 patient, Model model) {
-        model.addAttribute("patient1", patient);
-        return "page";
-    }*/
+    @RequestMapping(value="/patientList", method = RequestMethod.GET)
+    public String patientList(){
+        return "patientList"; //список зарегестрировавшихся
+    }
 
     @CrossOrigin
     @RequestMapping(value="/registration", method = RequestMethod.GET)
@@ -70,17 +63,8 @@ public class PatientServiceController {
         String toWhichDoctor = patientForm.getToWhichDoctor();
         Date dateOfVisit = patientForm.getDateOfVisit();
 
-        System.out.println("firstName " + firstName );
-        System.out.println("lastName " + lastName);
-        System.out.println("passportSerial " + passportSerial);
-        System.out.println("mail " + mail);
-        System.out.println("doctorSpetialisation " + doctorSpetialisation);
-        System.out.println("toWhichDoctor " + toWhichDoctor);
-        System.out.println("dateOfVisit " + dateOfVisit);
-
-        if(/*firstName != null & lastName != null & 0 < passportSerial & mail !=null
-            & doctorSpetialisation != null &*/ dateOfVisit != null){ //проверяем валидность данных
-            Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
+        if(dateOfVisit != null){ //проверяем валидность данных
+            //Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.save(patient1);
             patientService.createRecord(dateOfVisit);
             return "redirect:/patientList";
@@ -89,16 +73,16 @@ public class PatientServiceController {
         return "page";
     }
 
-    @CrossOrigin//(origins = "http://localhost:8080")
+    @CrossOrigin
     @RequestMapping(value = "/getRecord/{dateFromJs}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> testGetRecord(@PathVariable(name = "dateFromJs") String str){
         List<Date> list = patientService.getRecord(str);
         return new ResponseEntity<>(list, HttpStatus.OK); //метод возвращает список в котором ({dateFromJs} будет переданно как "yyyy-MM-dd") будут возвращенны совавшие даты со временем которые зарезервированны
     }
 
-    @RequestMapping(value = "/allRecord",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/allRecord",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnRecord(){
-        List<Date> list = patientService.allRecord(); //запрос на список дат все которые есть в репозитории
+        List<String> list = patientService.allRecord(); //запрос на список дат все которые есть в репозитории
         return new ResponseEntity<Object>(list, HttpStatus.OK);
     }
 }

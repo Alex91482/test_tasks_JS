@@ -41,11 +41,11 @@ public class PatientServiceImpl implements PatientService{
     }
 
     @Override //вернуть все даты записей
-    public List<Date> allRecord(){
-        List<Date> list = new ArrayList<>();
+    public List<String> allRecord(){
+        List<String> list = new ArrayList<>();
         for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
             Date x = PATIENT_REPOSITORY_LIST.get(i);
-            list.add(x);
+            list.add(x.toString());
         }
         return list;
     }

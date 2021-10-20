@@ -39,7 +39,8 @@
       <p>Date of visit:   <input type="date" id="date" required/></p>
       <p>Doctor special.: <input type="text" th:field="*{doctorSpetialisation}" /></p>
       <p>To which doctor: <input type="text" th:field="*{toWhichDoctor}" /></p>
-      <p id="dayTime" type="date" th:field="*{dateOfVisit}" ></p>
+      <!--<p><input id="dayTime"  name ="dayTime" type="text" th:value="${dateOfVisit}" th:field="*{dateOfVisit}" /></p>-->
+      <p><input id="dayTime"  name ="dayTime" type="hidden" th:value="${dateOfVisit}" th:field="*{dateOfVisit}" /></p>
       <p>
         <button type="submit" id="submit" disabled value="Submit">Submit</button>
         <button type="reset" id="reset" onclick="oneClickSetAttr();" value="Reset">Reset</button>
