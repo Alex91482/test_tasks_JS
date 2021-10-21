@@ -1,6 +1,7 @@
 package com.example.hospitalregistration.init;
 
 
+import com.example.hospitalregistration.entity.Recording;
 import com.example.hospitalregistration.service.patientservice.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -27,17 +28,22 @@ public class DataInit implements ApplicationRunner {
         long count = 0;
 
         if (count == 0) {
-            Date d1 = formater.parse("2021-10-19 16:20");
-            Date d2 = formater.parse("2021-10-19 16:40");
-            Date d3 = formater.parse("2021-10-19 15:20");
-            Date d4 = formater.parse("2021-10-19 15:40");
-            Date d5 = formater.parse("2021-11-01 16:20");
+            Date d1 = formater.parse("2021-10-31 16:20");
+            Date d2 = formater.parse("2021-10-31 16:40");
+            Date d3 = formater.parse("2021-10-31 15:20");
+            Date d4 = formater.parse("2021-10-31 15:40");
+            Date d5 = formater.parse("2021-10-31 16:00");
 
-            patientService.createRecord(d1);
-            patientService.createRecord(d2);
-            patientService.createRecord(d3);
-            patientService.createRecord(d4);
-            patientService.createRecord(d5);
+            String s1 = "THERAPIST";
+            String s2 = "OPTOMETRIST";
+            String s3 = "OTOLARYNGOLOGIST";
+
+            patientService.createRecord(d1,s1);
+            patientService.createRecord(d2,s1);
+            patientService.createRecord(d3,s2);
+            patientService.createRecord(d4,s2);
+            patientService.createRecord(d1,s3);
+            patientService.createRecord(d5,s3);
         }
         count++;
     }

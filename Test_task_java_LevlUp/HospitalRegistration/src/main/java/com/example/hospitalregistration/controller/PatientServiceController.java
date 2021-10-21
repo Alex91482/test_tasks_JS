@@ -63,10 +63,10 @@ public class PatientServiceController {
         String toWhichDoctor = patientForm.getToWhichDoctor();
         Date dateOfVisit = patientForm.getDateOfVisit();
 
-        if(dateOfVisit != null){ //проверяем валидность данных
+        if(dateOfVisit != null & doctorSpetialisation != null){ //проверяем валидность данных
             //Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.save(patient1);
-            patientService.createRecord(dateOfVisit);
+            patientService.createRecord(dateOfVisit,doctorSpetialisation);
             return "redirect:/patientList";
         }
         model.addAttribute("errorMessage", errorMessage);
@@ -74,9 +74,9 @@ public class PatientServiceController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/getRecord/{dateFromJs}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> testGetRecord(@PathVariable(name = "dateFromJs") String str){
-        List<Date> list = patientService.getRecord(str);
+    @RequestMapping(value = "/getRecord/{specFromJs}/{dateFromJs}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> testGetRecord(@PathVariable(name = "specFromJs") String spec,@PathVariable(name = "dateFromJs") String dat){
+        List<Date> list = patientService.getRecord(dat,spec);
         return new ResponseEntity<>(list, HttpStatus.OK); //метод возвращает список в котором ({dateFromJs} будет переданно как "yyyy-MM-dd") будут возвращенны совавшие даты со временем которые зарезервированны
     }
 

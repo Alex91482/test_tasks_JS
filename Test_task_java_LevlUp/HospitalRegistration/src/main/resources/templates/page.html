@@ -31,20 +31,31 @@
   <div class="left">
     <h1>Registration</h1>
     <form th:action="@{/registration}" th:object="${patientForm}" method="post">
-
+      <!--
+        <p><input type="radio" name="doctor" value="THERAPIST"/>Therapist</p>
+        <p><input type="radio" name="doctor" value="OPTOMETRIST"/>Optometrist</p>
+        <p><input type="radio" name="doctor" value="OTOLARYNGOLOGIST"/>Otolaryngologist</p>
+      -->
       <p>First name:      <input type="text" th:field="*{firstName}" /></p>
       <p>Last name:       <input type="text" th:field="*{lastName}" /></p>
       <p>Passport serial: <input type="number" th:field="*{passportSerial}" /></p>
       <p>Mail:            <input type="text" th:field="*{mail}" /></p>
       <p>Date of visit:   <input type="date" id="date" required/></p>
-      <p>Doctor special.: <input type="text" th:field="*{doctorSpetialisation}" /></p>
+      <p>Doctor special.:
+        <select name="language" id="spec" size="1">
+          <option value="THERAPIST" selected="selected">Therapist</option>
+          <option value="OPTOMETRIST">Optometrist</option>
+          <option value="OTOLARYNGOLOGIST">Otolaryngologist</option>
+        </select>
+      </p>
+      <!--<p>Doctor special.: <input type="text" id="spec" th:field="*{doctorSpetialisation}" required/></p>-->
       <p>To which doctor: <input type="text" th:field="*{toWhichDoctor}" /></p>
-      <!--<p><input id="dayTime"  name ="dayTime" type="text" th:value="${dateOfVisit}" th:field="*{dateOfVisit}" /></p>-->
       <p><input id="dayTime"  name ="dayTime" type="hidden" th:value="${dateOfVisit}" th:field="*{dateOfVisit}" /></p>
+      <p><input id="docSpec"  name ="docSpec" type="hidden" th:value="${doctorSpetialisation}" th:field="*{doctorSpetialisation}" /></p>
       <p>
         <button type="submit" id="submit" disabled value="Submit">Submit</button>
         <button type="reset" id="reset" onclick="oneClickSetAttr();" value="Reset">Reset</button>
-        <button type="button" id="nextButton" onclick="setDateTime(document.getElementById('date'));">Next</button>
+        <button type="button" id="nextButton" onclick="setDateTime(document.getElementById('date'),document.getElementById('spec'));">Next</button>
       </p>
     </form>
   </div>
