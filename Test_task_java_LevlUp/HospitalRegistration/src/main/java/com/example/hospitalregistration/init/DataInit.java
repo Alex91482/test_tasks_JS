@@ -28,22 +28,27 @@ public class DataInit implements ApplicationRunner {
         long count = 0;
 
         if (count == 0) {
-            Date d1 = formater.parse("2021-10-31 16:20");
-            Date d2 = formater.parse("2021-10-31 16:40");
-            Date d3 = formater.parse("2021-10-31 15:20");
-            Date d4 = formater.parse("2021-10-31 15:40");
-            Date d5 = formater.parse("2021-10-31 16:00");
+            Date d1 = formater.parse("2021-10-31 9:00");
+            Date d2 = formater.parse("2021-10-31 10:00");
+            Date d3 = formater.parse("2021-10-31 11:00");
+            Date d4 = formater.parse("2021-10-31 13:00");
+            Date d5 = formater.parse("2021-10-31 14:00");
 
             String s1 = "THERAPIST";
             String s2 = "OPTOMETRIST";
             String s3 = "OTOLARYNGOLOGIST";
 
-            patientService.createRecord(d1,s1);
-            patientService.createRecord(d2,s1);
-            patientService.createRecord(d3,s2);
-            patientService.createRecord(d4,s2);
-            patientService.createRecord(d1,s3);
-            patientService.createRecord(d5,s3);
+            patientService.createRecord(d1,s1); //терапевт
+            patientService.createRecord(d2,s1); //терапевт
+            patientService.createRecord(d3,s1); //терапевт
+
+            patientService.createRecord(d1,s2); //окулист
+            patientService.createRecord(d2,s2); //окулист
+            patientService.createRecord(d5,s2); //окулист
+
+            patientService.createRecord(d3,s3); //отолоринголог
+            patientService.createRecord(d4,s3); //отолоринголог
+            patientService.createRecord(d5,s3); //отолоринголог
         }
         count++;
     }

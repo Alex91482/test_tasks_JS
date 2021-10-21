@@ -4,8 +4,9 @@ let globalSpecialization;
 
 function setDateTime(date, spec){ //функция получает год-месяц-день и спцальность врача в формате стринг и обращается за списком
     //формируем запрос к серверу
+    console.log(date.value);
     console.log(spec.value);
-    if(date.value.length == 0 | spec.value.length == 0){ //проверка на случай если дата не задана
+    if(date.value.length == 0){ //проверка на случай если дата не задана
         console.log("Error incorrect date/specialization value = " + date.value.length);
         document.getElementById('content').innerHTML=""; //если поля очистили ресетом то список со временем нужно убрать
         return;
@@ -48,8 +49,12 @@ function reserved(jsonDate, dateArrTime){ //функция делает сопо
     for(let i = 0; i < jsonDate.length; i++){
         let value = jsonDate[i]; //тут мы получили массив дат из контролера но это все string
         let dat = new Date(value);
-        let stringHoursMinutes = dat.getHours() + ":" + dat.getMinutes();
-        if(stringHoursMinutes == dateArrTime){ //если при переборе списка полученного из репозитория есть хоть какието значения значит будет, совпадение это значит что кто то уже зарегистрирован на эту дату
+
+        let min = dat.getMinutes(); //js возвращает 00 минут как 0 поэтому что бы провести сравнение нужно заменить 0 на 00
+        if(min === 0){min = '00';}
+
+        let stringHoursMinutes = dat.getHours() + ":" + min;
+        if(stringHoursMinutes === dateArrTime){ //если при переборе списка полученного из репозитория есть хоть какието значения значит будет, совпадение это значит что кто то уже зарегистрирован на эту дату
             html += '<td>';
             html += 'reserved';
             html += '</td></tr>';

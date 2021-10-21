@@ -31,18 +31,12 @@
   <div class="left">
     <h1>Registration</h1>
     <form th:action="@{/registration}" th:object="${patientForm}" method="post">
-      <!--
-        <p><input type="radio" name="doctor" value="THERAPIST"/>Therapist</p>
-        <p><input type="radio" name="doctor" value="OPTOMETRIST"/>Optometrist</p>
-        <p><input type="radio" name="doctor" value="OTOLARYNGOLOGIST"/>Otolaryngologist</p>
-      -->
       <p>First name:      <input type="text" th:field="*{firstName}" /></p>
       <p>Last name:       <input type="text" th:field="*{lastName}" /></p>
       <p>Passport serial: <input type="number" th:field="*{passportSerial}" /></p>
       <p>Mail:            <input type="text" th:field="*{mail}" /></p>
       <p>Date of visit:   <input type="date" id="date" required/></p>
-      <p>Doctor special.:
-        <select name="language" id="spec" size="1">
+      <p>Doctor special.:<select name="language" id="spec" size="1">
           <option value="THERAPIST" selected="selected">Therapist</option>
           <option value="OPTOMETRIST">Optometrist</option>
           <option value="OTOLARYNGOLOGIST">Otolaryngologist</option>

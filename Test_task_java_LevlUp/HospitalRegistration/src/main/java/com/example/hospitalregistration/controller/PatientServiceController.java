@@ -5,8 +5,6 @@ import com.example.hospitalregistration.service.patientservice.PatientForm;
 import com.example.hospitalregistration.service.patientservice.PatientService;
 import com.example.hospitalregistration.entity.*;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -63,7 +61,8 @@ public class PatientServiceController {
         String toWhichDoctor = patientForm.getToWhichDoctor();
         Date dateOfVisit = patientForm.getDateOfVisit();
 
-        if(dateOfVisit != null & doctorSpetialisation != null){ //проверяем валидность данных
+        boolean doesEntry = patientService.read(dateOfVisit,doctorSpetialisation);
+        if(dateOfVisit != null & doctorSpetialisation != null & !doesEntry){ //проверяем валидность данных
             //Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.save(patient1);
             patientService.createRecord(dateOfVisit,doctorSpetialisation);

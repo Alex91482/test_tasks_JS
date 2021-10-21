@@ -19,9 +19,9 @@ public class PatientServiceImpl implements PatientService{
 
         for(int i=0; i<PATIENT_REPOSITORY_LIST.size(); i++){
             Date dateVis = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-            if(date == dateVis){
+            if(date.getTime() == dateVis.getTime()){
                 String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-                if(str == specialization){
+                if(str.equals(specialization)){
                     return false;
                 }
             }
@@ -70,7 +70,7 @@ public class PatientServiceImpl implements PatientService{
         for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
             Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
             String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-            if(x == date & str.equals(specialization)){
+            if(x.getTime() == date.getTime() & str.equals(specialization)){
                 return true; //запись существует
             }
         }
@@ -83,7 +83,7 @@ public class PatientServiceImpl implements PatientService{
         for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
             Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
             String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-            if(x == date & str.equals(specialization)){
+            if(x.getTime() == date.getTime() & str.equals(specialization)){
                 PATIENT_REPOSITORY_LIST.remove(i);
                 return true; //запись удалена
             }
