@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class PatientServiceImpl implements PatientService{
+public class PatientServiceImpl implements PatientService{ //добавить сериализацию после каждого обновления
 
     private static final List<Recording> PATIENT_REPOSITORY_LIST = new ArrayList<>(); //Хранилище зарезервированых дат
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");

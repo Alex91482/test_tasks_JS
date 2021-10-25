@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <title>Doctors</title>
+    <style>
+        th, td {
+        padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<h2>Doctor</h2>
+<table border="1">
+    <tr>
+        <th>Specialization</th>
+        <th>Last name</th>
+        <th>First name</th>
+    </tr>
+    <tr th:each="doctorInfo : ${doctorInfos}">
+        <td th:utext="${doctorInfo.specialization}">..</td>
+        <td th:utext="${doctorInfo.lastName}">..</td>
+        <td th:utext="${doctorInfo.firstName}">..</td>
+    </tr>
+</table>
+</body>
+</html>

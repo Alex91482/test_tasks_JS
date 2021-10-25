@@ -62,7 +62,7 @@ public class PatientServiceController {
         Date dateOfVisit = patientForm.getDateOfVisit();
 
         boolean doesEntry = patientService.read(dateOfVisit,doctorSpetialisation);
-        if(dateOfVisit != null & doctorSpetialisation != null & !doesEntry){ //проверяем валидность данных
+        if(dateOfVisit != null && doctorSpetialisation != null && !doesEntry){ //проверяем валидность данных
             //Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.save(patient1);
             patientService.createRecord(dateOfVisit,doctorSpetialisation);

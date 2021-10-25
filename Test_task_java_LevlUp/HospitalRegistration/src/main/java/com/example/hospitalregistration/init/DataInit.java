@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
-public class DataInit implements ApplicationRunner {
+public class DataInit implements ApplicationRunner { //добавить поиск в папке config сериализованного репозитория
 
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
