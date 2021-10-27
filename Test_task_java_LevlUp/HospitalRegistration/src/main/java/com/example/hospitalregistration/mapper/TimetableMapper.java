@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class TimetableMapper implements RowMapper<Timetable> {
 
-    public static final String BASE_SQL ="SELECT ti.Id, ti.Patient_id, ti.Doctor_id, ti.Date FROM timetable ti";
+    public static final String BASE_SQL_TIMETABLE ="SELECT ti.Id, ti.Patient_id, ti.Doctor_id, ti.Date FROM timetable ti";
 
     @Override
     public Timetable mapRow(ResultSet rs, int rowNum) throws SQLException {

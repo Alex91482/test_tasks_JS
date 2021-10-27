@@ -21,7 +21,7 @@ public class PatientDAO extends JdbcDaoSupport {
     } //разобратся с этим
 
     public List<Patient> getPatient() { //получить всех пациентов
-        String sql = PatientMapper.BASE_SQL;
+        String sql = PatientMapper.BASE_SQL_PATIENT;
         Object[] params = new Object[] {};
         PatientMapper mapper = new PatientMapper();
         List<Patient> list = this.getJdbcTemplate().query(sql, params, mapper);
@@ -30,7 +30,7 @@ public class PatientDAO extends JdbcDaoSupport {
     }
 
     public Patient findPatient(Long id) { //получить пациента по id
-        String sql = PatientMapper.BASE_SQL + " WHERE pa.Id = ? ";
+        String sql = PatientMapper.BASE_SQL_PATIENT + " WHERE pa.Id = ? ";
         Object[] params = new Object[] { id };
         PatientMapper mapper = new PatientMapper();
         try {

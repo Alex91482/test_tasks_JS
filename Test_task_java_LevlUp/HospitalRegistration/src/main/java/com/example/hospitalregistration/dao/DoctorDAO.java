@@ -21,7 +21,7 @@ public class DoctorDAO extends JdbcDaoSupport{
     }
 
     public List<Doctor> getDoctors() {
-        String sql = DoctorMapper.BASE_SQL;
+        String sql = DoctorMapper.BASE_SQL_DOCTOR;
 
         Object[] params = new Object[] {};
         DoctorMapper mapper = new DoctorMapper();
@@ -31,7 +31,7 @@ public class DoctorDAO extends JdbcDaoSupport{
     }
 
     public Doctor findDoctor(Long id) {
-        String sql = DoctorMapper.BASE_SQL + " where do.Id = ? ";
+        String sql = DoctorMapper.BASE_SQL_DOCTOR + " WHERE do.Id = ? ";
 
         Object[] params = new Object[] { id };
         DoctorMapper mapper = new DoctorMapper();

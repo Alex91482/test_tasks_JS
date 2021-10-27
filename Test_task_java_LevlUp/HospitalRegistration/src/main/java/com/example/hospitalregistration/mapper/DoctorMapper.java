@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 public class DoctorMapper implements RowMapper<Doctor>{
 
-    public static final String BASE_SQL ="Select do.Id, do.Last_Name, do.First_Name, do.Specialization From doctor do";
+    public static final String BASE_SQL_DOCTOR ="Select do.Id, do.Last_Name, do.First_Name, do.Specialization From doctor do";
 
     @Override
     public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {

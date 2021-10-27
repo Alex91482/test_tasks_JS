@@ -20,7 +20,7 @@ public class TimetableDAO extends JdbcDaoSupport {
     }
 
     public List<Timetable> getTimetable() {
-        String sql = TimetableMapper.BASE_SQL;
+        String sql = TimetableMapper.BASE_SQL_TIMETABLE;
         Object[] params = new Object[] {};
         TimetableMapper mapper = new TimetableMapper();
         List<Timetable> list = this.getJdbcTemplate().query(sql, params, mapper);

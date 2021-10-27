@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class PatientMapper implements RowMapper<Patient> {
 
-    public static final String BASE_SQL ="SELECT pa.Id, pa.First_Name, pa.Last_Name, pa.Passport_serial, pa.Mail, pa.Date_of_visit, pa.Doctor_specialization, pa.To_which_doctor FROM patient pa";
+    public static final String BASE_SQL_PATIENT ="SELECT pa.Id, pa.First_Name, pa.Last_Name, pa.Passport_serial, pa.Mail, pa.Date_of_visit, pa.Doctor_specialization, pa.To_which_doctor FROM patient pa";
 
     @Override
     public Patient mapRow(ResultSet rs, int rowNum) throws SQLException {
