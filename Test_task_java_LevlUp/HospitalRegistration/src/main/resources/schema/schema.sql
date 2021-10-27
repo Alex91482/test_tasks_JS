@@ -4,8 +4,7 @@ CREATE TABLE doctor
     Id PRIMARY KEY,
     Last_name VARCHAR(128) NOT NULL,
     First_name VARCHAR(128) NOT NULL,
-    Specialization VARCHAR(128) NOT NULL,
-    FOREIGN KEY (Id_doctor) REFERENCES timetable (Id_doctor)
+    Specialization VARCHAR(128) NOT NULL
 );
 
 Insert into doctor(Id, Last_name, First_name, Specialization) values (1, 'House', 'Gregory', 'Therapist');
@@ -43,7 +42,7 @@ Insert into patient(Id, First_name, Last_name, Passport_serial, Mail, Date_of_vi
 CREATE TABLE timetable
 (
     Id PRIMARY KEY,
-    Patient_id,
+    Patient_id BIGINT NOT NULL,
     Doctor_id BIGINT NOT NULL,
     Date DATE NOT NULL,
     FOREIGN KEY (Patient_id) REFERENCES patient (Id),

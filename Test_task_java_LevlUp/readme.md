@@ -82,13 +82,12 @@ _____________________________________________________________
 	Last_name VARCHAR(128) NOT NULL,
 	First_name VARCHAR(128) NOT NULL,
 	Specialization VARCHAR(128) NOT NULL,
-	FOREIGN KEY (Id_doctor) REFERENCES timetable (Id_doctor)
 	);
 
 	CREATE TABLE timetable
 	(
 	Id PRIMARY KEY,
-	Patient_id,				
+	Patient_id BIGINT NOT NULL,				
 	Doctor_id BIGINT NOT NULL,
 	Date DATE NOT NULL,
 	FOREIGN KEY (Patient_id) REFERENCES patient (Id),

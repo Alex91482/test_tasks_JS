@@ -45,7 +45,7 @@
       <!--<p>Doctor special.: <input type="text" id="spec" th:field="*{doctorSpetialisation}" required/></p>-->
       <p>To which doctor: <input type="text" th:field="*{toWhichDoctor}" /></p>
       <p><input id="dayTime"  name ="dayTime" type="hidden" th:value="${dateOfVisit}" th:field="*{dateOfVisit}" /></p>
-      <p><input id="docSpec"  name ="docSpec" type="hidden" th:value="${doctorSpetialisation}" th:field="*{doctorSpetialisation}" /></p>
+      <p><input id="docSpec"  name ="docSpec" type="hidden" th:value="${doctorSpecialisation}" th:field="*{doctorSpetialisation}" /></p>
       <p>
         <button type="submit" id="submit" disabled value="Submit">Submit</button>
         <button type="reset" id="reset" onclick="oneClickSetAttr();" value="Reset">Reset</button>

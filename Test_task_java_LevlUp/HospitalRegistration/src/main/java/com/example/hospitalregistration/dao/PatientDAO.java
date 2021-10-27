@@ -6,11 +6,13 @@ import com.example.hospitalregistration.mapper.PatientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Date;
 import java.util.List;
 
+@Repository
 public class PatientDAO extends JdbcDaoSupport {
 
     @Autowired

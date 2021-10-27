@@ -57,15 +57,15 @@ public class PatientServiceController {
         String lastName = patientForm.getLastName();
         int passportSerial = patientForm.getPassportSerial();
         String mail = patientForm.getMail();
-        String doctorSpetialisation = patientForm.getDoctorSpetialisation();
+        String doctorSpecialisation = patientForm.getDoctorSpecialisation();
         String toWhichDoctor = patientForm.getToWhichDoctor();
         Date dateOfVisit = patientForm.getDateOfVisit();
 
-        boolean doesEntry = patientService.read(dateOfVisit,doctorSpetialisation);
-        if(dateOfVisit != null && doctorSpetialisation != null && !doesEntry){ //проверяем валидность данных
-            //Patient1 patient1 = new Patient1(firstName,lastName,passportSerial,mail,doctorSpetialisation,toWhichDoctor,dateOfVisit);
-            //patientDAO.save(patient1);
-            patientService.createRecord(dateOfVisit,doctorSpetialisation);
+        boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation);
+        if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){ //проверяем валидность данных
+            //Patient patient = new Patient1(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
+            //patientDAO.savePatient(patient1);
+            patientService.createRecord(dateOfVisit,doctorSpecialisation);
             return "redirect:/patientList";
         }
         model.addAttribute("errorMessage", errorMessage);

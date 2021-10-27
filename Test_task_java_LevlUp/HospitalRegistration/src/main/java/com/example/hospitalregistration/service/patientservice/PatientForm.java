@@ -27,7 +27,7 @@ public class PatientForm {
     private String mail;
 
     @Getter @Setter
-    private String doctorSpetialisation;
+    private String doctorSpecialisation;
 
     @Getter @Setter
     private String toWhichDoctor;

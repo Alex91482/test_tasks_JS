@@ -21,6 +21,7 @@ public class Doctor {
     //}
 
     public Doctor(long id, String lastName, String firstName, String specialization){
+        this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.specialization = specialization;
