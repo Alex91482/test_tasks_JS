@@ -29,10 +29,8 @@ public class DataInit implements ApplicationRunner { //добавить поис
 
         if (count == 0) {
             Date d1 = formater.parse("2021-10-31 9:00");
-            Date d2 = formater.parse("2021-10-31 10:00");
-            Date d3 = formater.parse("2021-10-31 11:00");
-            Date d4 = formater.parse("2021-10-31 13:00");
-            Date d5 = formater.parse("2021-10-31 14:00");
+            Date d2 = formater.parse("2021-10-31 9:20");
+            Date d3 = formater.parse("2021-10-31 9:40");
 
             String s1 = "THERAPIST";
             String s2 = "OPTOMETRIST";
@@ -44,11 +42,11 @@ public class DataInit implements ApplicationRunner { //добавить поис
 
             patientService.createRecord(d1,s2); //окулист
             patientService.createRecord(d2,s2); //окулист
-            patientService.createRecord(d5,s2); //окулист
+            patientService.createRecord(d3,s2); //окулист
 
+            patientService.createRecord(d1,s3); //отолоринголог
+            patientService.createRecord(d2,s3); //отолоринголог
             patientService.createRecord(d3,s3); //отолоринголог
-            patientService.createRecord(d4,s3); //отолоринголог
-            patientService.createRecord(d5,s3); //отолоринголог
         }
         count++;
     }

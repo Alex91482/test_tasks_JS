@@ -63,8 +63,8 @@ public class PatientServiceController {
 
         boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation);
         if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){ //проверяем валидность данных
-            //Patient patient = new Patient1(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
-            //patientDAO.savePatient(patient1);
+            //Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
+            //patientDAO.savePatient(patient);
             patientService.createRecord(dateOfVisit,doctorSpecialisation);
             return "redirect:/patientList";
         }

@@ -1,7 +1,7 @@
 
 CREATE TABLE doctor
 (
-    Id PRIMARY KEY,
+    Id BIGINT PRIMARY KEY,
     Last_name VARCHAR(128) NOT NULL,
     First_name VARCHAR(128) NOT NULL,
     Specialization VARCHAR(128) NOT NULL
@@ -9,29 +9,29 @@ CREATE TABLE doctor
 
 CREATE TABLE patient
 (
-    Id PRIMARY KEY,
+    Id BIGINT PRIMARY KEY,
     First_name VARCHAR(128) NOT NULL,
     Last_name VARCHAR(128) NOT NULL,
     Passport_serial INTEGER NOT NULL,
     Mail VARCHAR(255) NOT NULL,
-    Date_of_visit DATE NOT NULL,
+    Date_of_visit TIMESTAMP NOT NULL,
     Doctor_specialization VARCHAR(128) NOT NULL,
     To_which_doctor VARCHAR(128)
 );
 
 CREATE TABLE timetable
 (
-    Id PRIMARY KEY,
+    Id BIGINT PRIMARY KEY,
     Patient_id BIGINT NOT NULL,
     Doctor_id BIGINT NOT NULL,
-    Date DATE NOT NULL,
+    Date TIMESTAMP NOT NULL,
     FOREIGN KEY (Patient_id) REFERENCES patient (Id),
     FOREIGN KEY (Doctor_id) REFERENCES doctor (Id)
 );
 
 CREATE TABLE disease_history
 (
-    Id PRIMARY KEY,
+    Id BIGINT PRIMARY KEY,
     Patient_id BIGINT NOT NULL,
     Doctor_id BIGINT NOT NULL,
     Diagnosis TEXT,
@@ -70,12 +70,12 @@ Insert into timetable(Id, Patient_id, Doctor_id, Date) values (7, 7, 5, '2021-10
 Insert into timetable(Id, Patient_id, Doctor_id, Date) values (8, 8, 5, '2021-10-31 9:20');
 Insert into timetable(Id, Patient_id, Doctor_id, Date) values (9, 9, 5, '2021-10-31 9:40');
 
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (1, 1, 1,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (2, 2, 1,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (3, 3, 1,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (4, 4, 2,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (5, 5, 2,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (6, 6, 2,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (7, 7, 5,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (8, 8, 5,'','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (9, 9, 5,'','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (1, 1, 1,'cold','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (2, 2, 1,'gastritis','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (3, 3, 1,'bedsores','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (4, 4, 2,'hyperopia','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (5, 5, 2,'glaucoma','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (6, 6, 2,'myopia','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (7, 7, 5,'diabetes','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (8, 8, 5,'cirrhosis of the liver','');
+Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (9, 9, 5,'skittle','');

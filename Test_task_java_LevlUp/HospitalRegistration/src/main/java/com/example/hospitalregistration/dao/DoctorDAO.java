@@ -30,8 +30,8 @@ public class DoctorDAO extends JdbcDaoSupport{
         return list;
     }
 
-    public Doctor findDoctor(Long id) {
-        String sql = DoctorMapper.BASE_SQL_DOCTOR + " WHERE do.Id = ? ";
+    public Doctor findDoctor(Long id) { //создать метод для поиска по фамилии
+        String sql = DoctorMapper.BASE_SQL_DOCTOR + " WHERE d.Id = ? ";
 
         Object[] params = new Object[] { id };
         DoctorMapper mapper = new DoctorMapper();
