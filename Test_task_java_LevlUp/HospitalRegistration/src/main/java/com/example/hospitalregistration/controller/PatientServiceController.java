@@ -1,22 +1,21 @@
 package com.example.hospitalregistration.controller;
 
 
+import com.example.hospitalregistration.service.mail.EmailService;
 import com.example.hospitalregistration.service.patientservice.PatientForm;
 import com.example.hospitalregistration.service.patientservice.PatientService;
-import com.example.hospitalregistration.entity.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,19 +35,9 @@ public class PatientServiceController {
         this.patientService = patientService;
     }
 
-    @CrossOrigin
-    @RequestMapping(value="/patientList", method = RequestMethod.GET)
-    public String patientList(){
-        return "patientList"; //список зарегестрировавшихся
-    }
+    @Autowired
+    public JavaMailSender emailSender;
 
-    @CrossOrigin
-    @RequestMapping(value="/registration", method = RequestMethod.GET)
-    public String patientFrom(Model model){
-        PatientForm patientForm = new PatientForm();
-        model.addAttribute("patientForm",patientForm);
-        return "page"; //форма для регистрации
-    }
 
     @CrossOrigin
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -66,7 +55,9 @@ public class PatientServiceController {
             //Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.savePatient(patient);
             patientService.createRecord(dateOfVisit,doctorSpecialisation);
-            return "redirect:/patientList";
+            EmailService emailService = new EmailService(); //оживляем сервис по отправки сообщений
+            this.emailSender.send(emailService.sendMail(mail,dateOfVisit));
+            return "redirect:/pageMailMessage";
         }
         model.addAttribute("errorMessage", errorMessage);
         return "page";
@@ -84,4 +75,23 @@ public class PatientServiceController {
         List<String> list = patientService.allRecord(); //запрос на список дат все которые есть в репозитории
         return new ResponseEntity<Object>(list, HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @RequestMapping(value="/patientList", method = RequestMethod.GET)
+    public String patientList(){
+        return "patientList"; //список зарегестрировавшихся
+    }
+    @RequestMapping(value="/pageMailMessage", method = RequestMethod.GET)
+    public String patientPageMail(){
+        return "pageMailMessage"; //решистрация прошла успешно
+    }
+
+    @CrossOrigin
+    @RequestMapping(value="/registration", method = RequestMethod.GET)
+    public String patientFrom(Model model){
+        PatientForm patientForm = new PatientForm();
+        model.addAttribute("patientForm",patientForm);
+        return "page"; //форма для регистрации
+    }
+
 }
