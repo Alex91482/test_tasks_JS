@@ -1,34 +1,35 @@
 package com.example.hospitalregistration.service.mail;
 
 
-/*
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
 @Service
-public class EmailService implements EmailService{ //не настроено! не сконфигурированно!
+public class EmailService{
 
     @Autowired
     public JavaMailSender emailSender;
 
-    @Override
-    public void sendSimpleEmail(String toAddress, String subject, String message) {
+    private static final Logger logger = LogManager.getLogger(EmailService.class);
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(toAddress);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message);
-        emailSender.send(simpleMailMessage);
-    }
+    public void sendMail(String patientMail, Date dateOfVisit){
+        try{
 
-    @Override
-    public void sendEmailWithAttachment(String toAddress, String subject, String message, String attachment) throws MessagingException, FileNotFoundException {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(patientMail);                             //почта получателя
+            message.setSubject(MyConstants.STANDARD_THEME);         //тема сообщения
+            message.setText(MyConstants.STANDARD_MESSAGE + dateOfVisit.toString()); //текст сообщения
+            this.emailSender.send(message);
 
-        MimeMessage mimeMessage = emailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
-        messageHelper.setTo(toAddress);
-        messageHelper.setSubject(subject);
-        messageHelper.setText(message);
-        FileSystemResource file = new FileSystemResource(ResourceUtils.getFile(attachment));
-        messageHelper.addAttachment("Purchase Order", file);
-        emailSender.send(mimeMessage);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
     }
 }
-}*/
+

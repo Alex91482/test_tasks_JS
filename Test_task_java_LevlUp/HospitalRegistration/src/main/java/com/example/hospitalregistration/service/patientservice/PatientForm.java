@@ -2,6 +2,8 @@ package com.example.hospitalregistration.service.patientservice;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
 public class PatientForm {
 
     private final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final Logger logger = LogManager.getLogger(PatientForm.class);
 
     //@Getter @Setter
     //private Long id;
@@ -38,7 +41,7 @@ public class PatientForm {
         try{
         dateOfVisit = formater.parse(dateFromJson);
         }catch (Exception e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
     }
     public Date getDateOfVisit(){ //если свой сеттер то пусть будет свой геттер

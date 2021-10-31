@@ -76,7 +76,7 @@ public class PatientServiceController {
     @RequestMapping(value = "/getRecord/{specFromJs}/{dateFromJs}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> testGetRecord(@PathVariable(name = "specFromJs") String spec,@PathVariable(name = "dateFromJs") String dat){
         List<Date> list = patientService.getRecord(dat,spec);
-        return new ResponseEntity<>(list, HttpStatus.OK); //метод возвращает список в котором ({dateFromJs} будет переданно как "yyyy-MM-dd") будут возвращенны совавшие даты со временем которые зарезервированны
+        return new ResponseEntity<>(list, HttpStatus.OK); //метод возвращает список в котором ({dateFromJs} будет переданно как "yyyy-MM-dd") будут возвращенны совпавшие даты со временем которые зарезервированны
     }
 
     @RequestMapping(value = "/allRecord",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
