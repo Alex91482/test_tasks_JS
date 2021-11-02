@@ -3,6 +3,8 @@ package com.example.hospitalregistration.dao;
 import com.example.hospitalregistration.entity.Timetable;
 import com.example.hospitalregistration.mapper.TimetableMapper;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,8 @@ public class TimetableDAO extends JdbcDaoSupport {
     public TimetableDAO(DataSource dataSource) {
         this.setDataSource(dataSource);
     }
+
+    private static final Logger logger = LogManager.getLogger(TimetableDAO.class);
 
     public List<Timetable> getTimetable() {
         String sql = TimetableMapper.BASE_SQL_TIMETABLE;
@@ -40,7 +44,7 @@ public class TimetableDAO extends JdbcDaoSupport {
         try {
             this.getJdbcTemplate().update(sqlSave,params,timetableMapper);
         }catch (Exception e){
-            e.getMessage();
+            logger.warn(e.getMessage());
         }
     }
 }

@@ -28,7 +28,7 @@ public class Recording {
         }
 
         Recording recording = (Recording) obj;
-        return(specialization == recording.getSpecialization() ||
+        return(
                 (specialization != null && specialization.equals(recording.getSpecialization()))
                 && toVisit != null && toVisit.getTime() == recording.getToVisit().getTime()
                 );

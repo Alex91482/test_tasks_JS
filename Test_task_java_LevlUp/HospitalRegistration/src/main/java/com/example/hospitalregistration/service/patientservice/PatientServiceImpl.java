@@ -13,7 +13,8 @@ import java.util.*;
 @Service
 public class PatientServiceImpl implements PatientService,Serializable{ //сериализация класса после каждого обновления
 
-    private static final List<Recording> PATIENT_REPOSITORY_LIST = new ArrayList<>(); //Хранилище зарезервированых дат
+    private static final HashSet<Recording> PATIENT_REPOSITORY_LIST = new HashSet<>(); //Хранилище зарезервированых дат
+
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
     private static final Logger logger = LogManager.getLogger(PatientServiceImpl.class);
     private static final long serialVersionUID = 1L;
@@ -21,36 +22,23 @@ public class PatientServiceImpl implements PatientService,Serializable{ //сер
 
     @Override //создать запись
     public boolean createRecord(Date date, String specialization){
-
-        for(int i=0; i<PATIENT_REPOSITORY_LIST.size(); i++){
-            Date dateVis = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-            if(date.getTime() == dateVis.getTime()){
-                String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-                if(str.equals(specialization)){
-                    return false;
-                }
-            }
-        }
-        PATIENT_REPOSITORY_LIST.add(new Recording(date,specialization));
+        Recording recording = new Recording(date,specialization);
+        if(PATIENT_REPOSITORY_LIST.contains(recording)){return false;}
+        PATIENT_REPOSITORY_LIST.add(recording);
         return true;
     }
 
-    @Override
-    public List<Date> getRecord(String dateFromJs, String specialization){ //вернуть время для конкретного дня
+    @Override //вернуть время для конкретного дня
+    public List<Date> getRecord(String dateFromJs, String specialization){
         List<Date> list = new ArrayList<>(); //дата в формате 2021-10-19
         try {
-            Date date=formater.parse(dateFromJs);
-            for(int i=0; i<PATIENT_REPOSITORY_LIST.size(); i++) {
-                Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-                if (x.getYear() == date.getYear() &
-                        x.getMonth() == date.getMonth() &
-                        x.getDay() == date.getDay()) //первая проверка на совпадение дат
-                //if(formater.format(x).equals(date))
+            for(Recording r : PATIENT_REPOSITORY_LIST){
+                Date date = r.getToVisit();
+                String x = formater.format(date);
+                if (x.equals(dateFromJs) &&
+                        specialization.equals(r.getSpecialization())) //совмещаем проверки по дате и специализации
                 {
-                    String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-                    if(str.equals(specialization)){ //вторая проверка на совпадение специализации
-                        list.add(x);
-                    }
+                    list.add(date);
                 }
             }
         }catch(Exception e){
@@ -60,39 +48,38 @@ public class PatientServiceImpl implements PatientService,Serializable{ //сер
     }
 
     @Override //вернуть все даты записей
-    public List<String> allRecord(){
+    public List<String> allRecord(){ //добавить сортировку по записи и по времени
         List<String> list = new ArrayList<>();
-        for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
-            Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-            String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-            list.add("Specialization: " + str + ", date of visit: " + x.toString());
+        for(Recording r : PATIENT_REPOSITORY_LIST){
+            list.add("Specialization: " +
+                    r.getSpecialization() +
+                    ", date of visit: " +
+                    r.getToVisit().toString());
         }
         return list;
     }
 
-    @Override //есть ли такая дата
+    @Override //есть ли такая запись
     public boolean read(Date date,String specialization){
-        for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
-            Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-            String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-            if(x.getTime() == date.getTime() & str.equals(specialization)){
-                return true; //запись существует
-            }
+        Recording recording = new Recording(date,specialization);
+        if(PATIENT_REPOSITORY_LIST.contains(recording)){
+            return true; //запись найдена
         }
         return false; //запись не существует
     }
 
-    @Override //удаляет дату
-    public boolean delete(Date date,String specialization){
+    @Override //удаляет запись
+    public boolean delete(Date date,String specialization){ //протестить данный метод
 
-        for(int i=0; i<PATIENT_REPOSITORY_LIST.size();i++){
-            Date x = PATIENT_REPOSITORY_LIST.get(i).getToVisit();
-            String str = PATIENT_REPOSITORY_LIST.get(i).getSpecialization();
-            if(x.getTime() == date.getTime() & str.equals(specialization)){
-                PATIENT_REPOSITORY_LIST.remove(i);
-                return true; //запись удалена
+        Recording recording = new Recording(date,specialization);
+        for(Iterator<Recording> i = PATIENT_REPOSITORY_LIST.iterator(); i.hasNext();){
+            Recording r = i.next();
+            if(r.equals(recording)){
+                i.remove();
+                return true; //удалено
             }
         }
-        return false; //строка не найдена дибо удалена
+        //PATIENT_REPOSITORY_LIST.removeIf(i ->(i.equals(recording))); //можно и так но тогда не получим флаг
+        return false; //строка не найдена либо уже была удалена
     }
 }

@@ -79,11 +79,11 @@ public class PatientServiceController {
     @CrossOrigin
     @RequestMapping(value="/patientList", method = RequestMethod.GET)
     public String patientList(){
-        return "patientList"; //список зарегестрировавшихся
+        return "patientList"; //список зарезервированных специализация/дата/время
     }
     @RequestMapping(value="/pageMailMessage", method = RequestMethod.GET)
     public String patientPageMail(){
-        return "pageMailMessage"; //решистрация прошла успешно
+        return "pageMailMessage"; //регистрация прошла успешно
     }
 
     @CrossOrigin

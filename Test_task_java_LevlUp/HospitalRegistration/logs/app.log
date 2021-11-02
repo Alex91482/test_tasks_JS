@@ -488,3 +488,94 @@ javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not ac
 2021-10-31 22:05:59.763 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
 2021-10-31 22:05:59.763  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
 2021-10-31 22:06:04.822  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 6.393 seconds (JVM running for 10.867)
+2021-11-02 22:03:59.648  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 9380 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 22:03:59.671 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 22:03:59.671  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 22:04:03.404  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.0 seconds (JVM running for 9.958)
+2021-11-02 22:09:48.697 ERROR DESKTOP-UJ9PV2V --- [nio-8080-exec-8] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.mail.MailParseException: Could not parse mail; nested exception is javax.mail.internet.AddressException: Illegal address in string ``''] with root cause
+javax.mail.internet.AddressException: Illegal address in string ``''
+	at org.springframework.mail.javamail.MimeMessageHelper.parseAddress(MimeMessageHelper.java:737)
+	at org.springframework.mail.javamail.MimeMessageHelper.setTo(MimeMessageHelper.java:621)
+	at org.springframework.mail.javamail.MimeMailMessage.setTo(MimeMailMessage.java:109)
+	at org.springframework.mail.SimpleMailMessage.copyTo(SimpleMailMessage.java:204)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:320)
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:312)
+	at com.example.hospitalregistration.controller.PatientServiceController.savePatient(PatientServiceController.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:540)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1726)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:831)
+2021-11-02 22:16:03.405  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 1340 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 22:16:03.426 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 22:16:03.426  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 22:16:07.050  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 4.898 seconds (JVM running for 8.45)
+2021-11-02 22:52:37.502  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 9632 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 22:52:37.531 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 22:52:37.531  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 22:52:41.337  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 4.93 seconds (JVM running for 8.93)
+2021-11-02 22:55:12.880  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 6792 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 22:55:12.913 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 22:55:12.913  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 22:55:17.401  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.95 seconds (JVM running for 9.464)
+2021-11-02 22:56:06.826  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 1828 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 22:56:06.856 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 22:56:06.856  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 22:56:10.450  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 4.797 seconds (JVM running for 8.226)
+2021-11-02 23:39:36.266  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 10092 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-02 23:39:36.290 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-02 23:39:36.290  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-02 23:39:40.672  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.78 seconds (JVM running for 10.628)
+2021-11-03 00:17:32.067  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 9968 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-03 00:17:32.107 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-03 00:17:32.107  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-03 00:17:35.963  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.098 seconds (JVM running for 9.442)
+2021-11-03 00:20:11.276  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 9448 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-03 00:20:11.297 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-03 00:20:11.299  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-03 00:20:14.812  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 4.76 seconds (JVM running for 9.51)

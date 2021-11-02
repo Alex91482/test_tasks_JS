@@ -3,6 +3,8 @@ package com.example.hospitalregistration.dao;
 import com.example.hospitalregistration.entity.Patient;
 import com.example.hospitalregistration.mapper.PatientMapper;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -22,6 +24,8 @@ public class PatientDAO extends JdbcDaoSupport {
         this.setDataSource(dataSource);
     } //разобратся с этим
 
+    private static final Logger logger = LogManager.getLogger(PatientDAO.class);
+
     public List<Patient> getPatient() { //получить всех пациентов
         String sql = PatientMapper.BASE_SQL_PATIENT;
         Object[] params = new Object[] {};
@@ -39,6 +43,7 @@ public class PatientDAO extends JdbcDaoSupport {
             Patient patient = this.getJdbcTemplate().queryForObject(sql, params, mapper);
             return patient;
         } catch (EmptyResultDataAccessException e) {
+            logger.warn(e.getMessage());
             return null;
         }
     }
@@ -61,7 +66,7 @@ public class PatientDAO extends JdbcDaoSupport {
         try {
             this.getJdbcTemplate().update(sqlSave,params,patientMapper);
         }catch (Exception e){
-            e.getMessage();
+            logger.warn(e.getMessage());
         }
     }
 
@@ -76,7 +81,7 @@ public class PatientDAO extends JdbcDaoSupport {
         try {
             this.getJdbcTemplate().update(sqlDelete,params,mapper);
         }catch (Exception e){
-            e.getMessage();
+            logger.warn(e.getMessage());
         }
         return true;
     }
