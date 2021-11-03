@@ -11,9 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class PatientServiceImpl implements PatientService,Serializable{ //сериализация класса после каждого обновления
+public class PatientServiceImpl implements PatientService,MaintenanceSerialization,Serializable{ //сериализация класса после каждого обновления
 
-    private static final HashSet<Recording> PATIENT_REPOSITORY_LIST = new HashSet<>(); //Хранилище зарезервированых дат
+    private final HashSet<Recording> PATIENT_REPOSITORY_LIST = new HashSet<>(); //Хранилище зарезервированых дат
 
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
     private static final Logger logger = LogManager.getLogger(PatientServiceImpl.class);
@@ -81,5 +81,20 @@ public class PatientServiceImpl implements PatientService,Serializable{ //сер
         }
         //PATIENT_REPOSITORY_LIST.removeIf(i ->(i.equals(recording))); //можно и так но тогда не получим флаг
         return false; //строка не найдена либо уже была удалена
+    }
+
+    @Override //загрузка записей из ранее сериализованного файла
+    public void loadRecording(HashSet<Recording> recordingHashSet){
+        if(PATIENT_REPOSITORY_LIST.isEmpty()){ //загрузка возмаожна только если хашсет пустой
+            PATIENT_REPOSITORY_LIST.addAll(recordingHashSet); //добовляем все элементы из сереализованного файла
+        }
+        else{
+            System.out.println("PATIENT_REPOSITORY_LIST not empty!");
+        }
+    }
+
+    @Override //получить из класса записи
+    public HashSet<Recording> getAllRecord(){
+        return new HashSet<>(PATIENT_REPOSITORY_LIST);
     }
 }

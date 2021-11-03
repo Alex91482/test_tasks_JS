@@ -2,7 +2,9 @@ package com.example.hospitalregistration.init;
 
 
 import com.example.hospitalregistration.entity.Recording;
+import com.example.hospitalregistration.service.serializable.SavePatientSerImpl;
 import com.example.hospitalregistration.service.patientservice.PatientService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -10,13 +12,17 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 @Component
-public class DataInit implements ApplicationRunner { //добавить поиск в папке config сериализованного репозитория
+public class DataInit implements ApplicationRunner {
 
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    private final PatientService patientService;
+    private final PatientService patientService; //репозиторий к которому обращаются при поиске зарезервированных записей
+
+    @Autowired
+    public SavePatientSerImpl savePatientSer; //сервис отвечающей за сериализацию и десериализацию
 
     @Autowired
     public DataInit (PatientService patientService){
@@ -27,7 +33,9 @@ public class DataInit implements ApplicationRunner { //добавить поис
     public void run(ApplicationArguments args) throws Exception{
         long count = 0;
 
-        if (count == 0) {
+        boolean search  = savePatientSer.existenceFile(); //проверяем есть ди сериализованный файл
+
+        if (!search && count == 0) { //если сериализованного файла не существует и счетчик равен нулю
             Date d1 = formater.parse("2021-10-31 9:00");
             Date d2 = formater.parse("2021-10-31 9:20");
             Date d3 = formater.parse("2021-10-31 9:40");
@@ -47,7 +55,14 @@ public class DataInit implements ApplicationRunner { //добавить поис
             patientService.createRecord(d1,s3); //отолоринголог
             patientService.createRecord(d2,s3); //отолоринголог
             patientService.createRecord(d3,s3); //отолоринголог
+
+            count++;
         }
-        count++;
+        if(search && count == 0){
+            patientService.loadRecording(savePatientSer.recoveryPatientSerImpl()); //загружаем в репозиторий то что ранее было сериализованно
+            System.out.println("patientService.loadRecording complete");
+            count++;
+        }
+
     }
 }

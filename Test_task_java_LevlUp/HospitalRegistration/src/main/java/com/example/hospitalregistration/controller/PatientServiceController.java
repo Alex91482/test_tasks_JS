@@ -5,6 +5,7 @@ import com.example.hospitalregistration.service.mail.EmailService;
 import com.example.hospitalregistration.service.patientservice.PatientForm;
 import com.example.hospitalregistration.service.patientservice.PatientService;
 
+import com.example.hospitalregistration.service.serializable.SavePatientSerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,13 +23,12 @@ import java.util.List;
 @Controller
 public class PatientServiceController {
 
-    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    //Date d1 = formater.parse("2021-10-19 16:20");
-
-    private final PatientService patientService;
-
     @Value("${error.message}")
     private String errorMessage;
+
+    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm"); //Date d1 = formater.parse("2021-10-19 16:20");
+
+    private final PatientService patientService;
 
     @Autowired
     public PatientServiceController (PatientService patientService){
@@ -37,6 +37,8 @@ public class PatientServiceController {
 
     @Autowired
     public JavaMailSender emailSender;
+    @Autowired
+    public SavePatientSerImpl savePatientSerImpl;
 
 
     @CrossOrigin
@@ -54,9 +56,9 @@ public class PatientServiceController {
         if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){ //проверяем валидность данных
             //Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
             //patientDAO.savePatient(patient);
-            patientService.createRecord(dateOfVisit,doctorSpecialisation);
-            EmailService emailService = new EmailService(); //оживляем сервис по отправки сообщений
-            this.emailSender.send(emailService.sendMail(mail,dateOfVisit));
+            patientService.createRecord(dateOfVisit,doctorSpecialisation); //сохраняем запись в репозитории чтобы на нее больше нельзя было оформить прием
+            savePatientSerImpl.serPatientSerImpl(); //
+            emailSender.send(new EmailService().sendMail(mail,dateOfVisit)); //оживляем почтовый сервис
             return "redirect:/pageMailMessage";
         }
         model.addAttribute("errorMessage", errorMessage);

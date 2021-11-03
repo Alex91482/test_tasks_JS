@@ -72,12 +72,8 @@ public class PatientDAO extends JdbcDaoSupport {
 
     public boolean deletePatient(long id){ //удалить пациента из базы
         String sqlDelete = "DELETE FROM patient WHERE Id = ?";
-        Patient patient = findPatient(id);
         Object[] params = new Object[]{id};
         PatientMapper mapper = new PatientMapper();
-        if(patient == null){
-            return false; //добавить вывод исключения
-        }
         try {
             this.getJdbcTemplate().update(sqlDelete,params,mapper);
         }catch (Exception e){

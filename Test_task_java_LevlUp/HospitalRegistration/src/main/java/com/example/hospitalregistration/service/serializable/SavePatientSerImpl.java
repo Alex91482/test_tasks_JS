@@ -7,6 +7,9 @@ import com.example.hospitalregistration.service.patientservice.PatientServiceImp
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -15,25 +18,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 
+@Service
 public class SavePatientSerImpl {
+
+    @Autowired
+    PatientServiceImpl patientService;
 
     private static final Logger logger = LogManager.getLogger(PatientServiceImpl.class);
     private static final String location = "./src/main/resources/config/saveFile.out";
 
-    public void savePatientSerImpl(PatientServiceImpl patientService){ //сериализуем
+    public void serPatientSerImpl(){ //сериализуем
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(location))){
             objectOutputStream.writeObject(patientService);
+            System.out.println("Serialization complete");
         }catch (Exception e){
+            System.out.println("Error in serPatientSerImpl method");
             logger.error(e.getMessage());
         }
     }
 
-    public ArrayList<Recording> recoveryPatientSerImpl(){ //десеареализуем
-        ArrayList<Recording> arr = new ArrayList<>();
+    public HashSet<Recording> recoveryPatientSerImpl(){ //десеареализуем
+        HashSet<Recording> arr = new HashSet<>();
         try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(location))){
-            arr = (ArrayList<Recording>) objectInputStream.readObject();
+            PatientServiceImpl psi = (PatientServiceImpl) objectInputStream.readObject();
+            arr = psi.getAllRecord();
         }catch (Exception e){
+            logger.info("Error in recoveryPatientSerImpl \n arr is Empty? " + arr.isEmpty());
             logger.error(e.getMessage());
         }
         return arr;
@@ -42,6 +54,8 @@ public class SavePatientSerImpl {
     public boolean existenceFile(){ //существует ли файл
         Path path = Paths.get(location);
         if (Files.exists(path)) {
+            System.out.println("Loading a previously serialized file");
+            logger.info("File exists: ./src/main/resources/config/saveFile.out");
             return true;
         }
         System.out.println("Serialized entries not found");

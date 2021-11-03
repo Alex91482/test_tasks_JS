@@ -3,9 +3,10 @@ package com.example.hospitalregistration.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Recording {
+public class Recording implements Serializable{
 
     @Getter @Setter
     private Date toVisit;

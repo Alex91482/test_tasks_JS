@@ -21,7 +21,7 @@ public class DiseaseHistoryDAO extends JdbcDaoSupport{
         this.setDataSource(dataSource);
     }
 
-    public void addDiseaseHistory(DiseaseHistory diseaseHistory){
+    public void addDiseaseHistory(DiseaseHistory diseaseHistory){ //создать историю болезни
         long id = diseaseHistory.getId();
         long patientId = diseaseHistory.getPatientId();
         long doctorId = diseaseHistory.getDoctorId();
@@ -38,7 +38,7 @@ public class DiseaseHistoryDAO extends JdbcDaoSupport{
         }
     }
 
-    public DiseaseHistory findDiseaseHistory(long id){
+    public DiseaseHistory findDiseaseHistory(long id){ //получить историю болезни
         String sql = DiseaseHistoryMapper.BASE_SQL_DISEASE_HISTORY + " WHERE dh.Id = ? ";
         Object[] params = new Object[] { id };
         DiseaseHistoryMapper mapper = new DiseaseHistoryMapper();
@@ -50,16 +50,4 @@ public class DiseaseHistoryDAO extends JdbcDaoSupport{
         }
     }
 }
-/*
-CREATE TABLE disease_history
-(
-    Id PRIMARY KEY,
-    Patient_id BIGINT NOT NULL,
-    Doctor_id BIGINT NOT NULL,
-    Diagnosis TEXT,
-    Recommendations TEXT,
-    FOREIGN KEY (patient_id) REFERENCES patient (Id),
-    FOREIGN KEY (doctor_id) REFERENCES doctor (Id)
-);
 
- */
