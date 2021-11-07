@@ -30,10 +30,10 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 
     public List<DoctorsTimetable> getDoctorsTimetableFromMonth(String date){
-        //вернуть расписание дежурства врачей на месяц, месяц принемает числовые значения от 1 до 12
+        //вернуть расписание дежурства врачей на месяц, месяц принемает формат гггг.мм.дд
         List<DoctorsTimetable> list = new ArrayList<>();
         try{
-            Date date1 = formater.parse(date);
+            Date date1 = formater.parse(date); //приводим к нужному формату
             String sql = DoctorsTimetableMapper.BASE_SQL_DOCTORS_TIMETABLE + " WHERE dt.Date >= ?::date and dt.Date < ?::date + '1 month'::interval";
             list = getJdbcTemplate().query(sql, new DoctorsTimetableMapper(), date1, date1);
         }catch (Exception e){
