@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,11 +25,27 @@ public class TimetableDAO extends JdbcDaoSupport {
     private static final Logger logger = LogManager.getLogger(TimetableDAO.class);
 
     public List<Timetable> getTimetable() {
-        String sql = TimetableMapper.BASE_SQL_TIMETABLE;
-        Object[] params = new Object[] {};
-        TimetableMapper mapper = new TimetableMapper();
-        List<Timetable> list = this.getJdbcTemplate().query(sql, params, mapper);
+        List<Timetable> list = new ArrayList<>();
+        try {
+            list = getJdbcTemplate().query(TimetableMapper.BASE_SQL_TIMETABLE, new TimetableMapper());
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
+        return list;
+    }
 
+    public List<Timetable> getTimetableForDay(String docLastName, String date) { //получение всех зарегистрированных пользователей по фамилии врача и конкретному дню
+        List<Timetable> list = new ArrayList<>();
+        String sql = TimetableMapper.BASE_SQL_TIMETABLE;
+        TimetableMapper mapper = new TimetableMapper();
+        try {
+            //List<Timetable> listAll = getJdbcTemplate().query(sql, mapper);
+            //for(){
+                //перебираем пока не попадется нужный день
+            //}
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
         return list;
     }
 

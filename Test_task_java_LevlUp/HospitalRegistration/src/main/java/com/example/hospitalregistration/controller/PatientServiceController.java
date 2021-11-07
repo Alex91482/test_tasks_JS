@@ -53,12 +53,12 @@ public class PatientServiceController {
         Date dateOfVisit = patientForm.getDateOfVisit();
 
         boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation);
-        if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){ //проверяем валидность данных
+        if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){  //проверяем валидность данных
             //Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
-            //patientDAO.savePatient(patient);
-            patientService.createRecord(dateOfVisit,doctorSpecialisation); //сохраняем запись в репозитории чтобы на нее больше нельзя было оформить прием
-            savePatientSerImpl.serPatientSerImpl(); //
-            emailSender.send(new EmailService().sendMail(mail,dateOfVisit)); //оживляем почтовый сервис
+            //patientDAO.savePatient(patient);                                  //сохраняем в бд
+            patientService.createRecord(dateOfVisit,doctorSpecialisation);      //сохраняем запись в репозитории чтобы на нее больше нельзя было оформить прием
+            savePatientSerImpl.serPatientSerImpl();                             //сериализуем репозиторий
+            emailSender.send(new EmailService().sendMail(mail,dateOfVisit));    //оживляем почтовый сервис
             return "redirect:/pageMailMessage";
         }
         model.addAttribute("errorMessage", errorMessage);
