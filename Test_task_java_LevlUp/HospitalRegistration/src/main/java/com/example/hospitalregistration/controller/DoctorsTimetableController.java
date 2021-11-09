@@ -26,7 +26,7 @@ public class DoctorsTimetableController {
         return new ResponseEntity<>(list, HttpStatus.OK); //возвращаем расписание врачей по фамилии доктора
     }
 
-    @RequestMapping(value = "/doctorNameTimetableDouble/{id}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/doctorNameTimetable/{id}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getRecordDoctorId(@PathVariable(name = "id") long doctorId){
         List<ArrayList<String>> list = doctorsTimetableDAO.getDoctorTimetableFromDoctorId(doctorId);
         return new ResponseEntity<>(list, HttpStatus.OK); //возвращаем расписание врачей по id доктора
