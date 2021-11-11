@@ -11,8 +11,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Repository

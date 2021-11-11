@@ -1,6 +1,11 @@
 package com.example.hospitalregistration.controller;
 
 
+import com.example.hospitalregistration.dao.PatientDAO;
+import com.example.hospitalregistration.dao.VirtualPatientDAO;
+import com.example.hospitalregistration.entity.Patient;
+import com.example.hospitalregistration.entity.VirtualPatient;
+import com.example.hospitalregistration.security.RandomGenerated;
 import com.example.hospitalregistration.service.mail.EmailService;
 import com.example.hospitalregistration.service.patientservice.PatientForm;
 import com.example.hospitalregistration.service.patientservice.PatientService;
@@ -36,9 +41,15 @@ public class PatientServiceController {
     }
 
     @Autowired
+    public PatientDAO patientDAO;
+    @Autowired
     public JavaMailSender emailSender;
     @Autowired
     public SavePatientSerImpl savePatientSerImpl;
+    @Autowired
+    public RandomGenerated randomGenerated; //место возможных ошибок
+    @Autowired
+    public VirtualPatientDAO virtualPatientDAO;
 
 
     @CrossOrigin
@@ -54,11 +65,17 @@ public class PatientServiceController {
 
         boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation);
         if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){  //проверяем валидность данных
-            //Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
-            //patientDAO.savePatient(patient);                                  //сохраняем в бд
+            Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
+            patientDAO.savePatient(patient);                                  //сохраняем в бд
+
+            String pass = randomGenerated.genPass(); //генерируем логин и пароль
+            String login = randomGenerated.genLog();
+
+            virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(),pass,login)); //создание виртуального пациента
+
             patientService.createRecord(dateOfVisit,doctorSpecialisation);      //сохраняем запись в репозитории чтобы на нее больше нельзя было оформить прием
             savePatientSerImpl.serPatientSerImpl();                             //сериализуем репозиторий
-            emailSender.send(new EmailService().sendMail(mail,dateOfVisit));    //оживляем почтовый сервис
+            emailSender.send(new EmailService().sendMail(mail,dateOfVisit,pass,login));    //оживляем почтовый сервис
             return "redirect:/pageMailMessage";
         }
         model.addAttribute("errorMessage", errorMessage);

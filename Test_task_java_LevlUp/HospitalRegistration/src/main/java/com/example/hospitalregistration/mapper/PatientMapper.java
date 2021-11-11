@@ -1,6 +1,8 @@
 package com.example.hospitalregistration.mapper;
 
 import com.example.hospitalregistration.entity.Patient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ import java.util.Date;
 public class PatientMapper implements RowMapper<Patient> {
 
     private final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static final Logger logger = LogManager.getLogger(PatientMapper.class);
     public static final String BASE_SQL_PATIENT ="SELECT pa.Id, pa.First_Name, pa.Last_Name, pa.Passport_serial, pa.Mail, pa.Date_of_visit, pa.Doctor_specialization, pa.To_which_doctor FROM patient pa";
 
     @Override
@@ -30,7 +33,7 @@ public class PatientMapper implements RowMapper<Patient> {
 
             return new Patient(id, firstName, lastName, passportSerial, mail, dateOfVisit, doctorSpecialization, toWhichDoctor);
         }catch (Exception e){
-            e.getMessage();
+            logger.warn(e.getMessage());
         }
         return null; //переделать
     }

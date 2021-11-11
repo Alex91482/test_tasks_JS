@@ -1,45 +1,31 @@
 package com.example.hospitalregistration.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
+@AllArgsConstructor
 public class Patient {
 
-    @Getter @Setter
     private Long id;
-
-    @Getter @Setter
     private String firstName;
-
-    @Getter @Setter
     private String lastName;
-
-    @Getter @Setter
     private int passportSerial;
-
-    @Getter @Setter
     private String mail;
-
-    @Getter @Setter
     private Date dateOfVisit;
-
-    @Getter @Setter
     private String doctorSpecialization;
-
-    @Getter @Setter
     private String toWhichDoctor;
 
-    public Patient(long id,String firstName,String lastName,int passportSerial, String mail,
-                   Date dateOfVisit, String doctorSpecialization,String toWhichDoctor){
-        this.id=id;
-        this.firstName=firstName;
-        this.lastName=lastName;
-        this.passportSerial=passportSerial;
-        this.mail=mail;
-        this.dateOfVisit=dateOfVisit;
-        this.doctorSpecialization=doctorSpecialization;
-        this.toWhichDoctor=toWhichDoctor;
+    public Patient(String firstName, String lastName, int passportSerial, String mail,
+                   String doctorSpecialisation, String toWhichDoctor, Date dateOfVisit) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passportSerial =passportSerial;
+        this.mail =mail;
+        this.doctorSpecialization = doctorSpecialisation;
+        this.toWhichDoctor = toWhichDoctor;
+        this.dateOfVisit = dateOfVisit;
     }
 }

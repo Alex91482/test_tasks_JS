@@ -16,7 +16,19 @@ CREATE TABLE patient
     Mail VARCHAR(255) NOT NULL,
     Date_of_visit TIMESTAMP NOT NULL,
     Doctor_specialization VARCHAR(128) NOT NULL,
-    To_which_doctor VARCHAR(128)
+    To_which_doctor VARCHAR(128),
+    Encryted_password VARCHAR(128) NOT NULL,
+    Login VARCHAR(128) NOT NULL
+);
+
+CREATE TABLE virtual_patient
+(
+    Id BIGSERIAL PRIMARY KEY,
+    Patient_id BIGINT NOT NULL,
+    Encryted_password VARCHAR(128) NOT NULL,
+    Login VARCHAR(128) NOT NULL,
+    Role VARCHAR(128) NOT NULL,
+    FOREIGN KEY (Patient_id) REFERENCES patient (Id)
 );
 
 CREATE TABLE timetable

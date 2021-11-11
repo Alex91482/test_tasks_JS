@@ -1,5 +1,6 @@
 package com.example.hospitalregistration.security.config;
 
+import com.example.hospitalregistration.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AccessDeniedHandler accessDeniedHandler;
 
-    /*@Autowired
-    UserDetailsServiceImpl userDetailsService;*/
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -30,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         //аккаунты пациентов
-        auth.userDetailsService(/*userDetailsService*/).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
         //аккаунты для персонала (маркейтинга например)
         auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
 
@@ -43,11 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/doctors","/doctorNameTimetable/**","/doctorTimetable/**",
-                        "/registration/**","/getRecord/**","/pageMailMessage","/login", "/logout"
+                .antMatchers("/**", "/doctors","/doctorNameTimetable/**","/doctorTimetable/**",
+                        "/registration/**","/getRecord/**","/pageMailMessage","/login", "/logout","/home/**"
                 ).permitAll()
                 .antMatchers("/patients/**").hasAnyRole("ADMIN")
-                .antMatchers().hasAnyRole("USER")
+                .antMatchers().hasAnyRole("PATIENT")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
