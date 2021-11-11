@@ -29,13 +29,13 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
     private static final Logger logger = LogManager.getLogger(PatientDAO.class);
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 
-    public List<DoctorsTimetable> getDoctorsTimetableFromMonth(String date){
+    public List<ArrayList<String>> getDoctorsTimetableFromMonth(String date){
         //вернуть расписание дежурства врачей на месяц, месяц принемает формат гггг.мм.дд
-        List<DoctorsTimetable> list = new ArrayList<>();
+        List<ArrayList<String>> list = new ArrayList<>();
         try{
             Date date1 = formater.parse(date); //приводим к нужному формату
             String sql = DoctorsTimetableMapper.BASE_SQL_DOCTORS_TIMETABLE + " WHERE dt.Date >= ?::date and dt.Date < ?::date + '1 month'::interval";
-            list = getJdbcTemplate().query(sql, new DoctorsTimetableMapper(), date1, date1);
+            list = getDoctorTimetableList(sql,date1);
         }catch (Exception e){
             logger.warn(e.getMessage());
         }
@@ -55,7 +55,7 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
         return list; //аналогично как и с фафилией доктора
     }
 
-    private List<ArrayList<String>> getDoctorTimetableList(String sql, Object o){ //метод который повторяется с толй лишь разницей по какому параметру будет запрос
+    private List<ArrayList<String>> getDoctorTimetableList(String sql, Object o){ //общий метод по запросу к бд с разницей по какому параметру будет запрос id или last name
         List<ArrayList<String>> list = new ArrayList<>();
         try{
             List<Map<String, Object>> strong = new ArrayList<>(); //в мапе будут содержатся значения сторок (Object) с ключами которые обозначают названия колонок (String)
@@ -66,6 +66,14 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
             } else if (o instanceof String){ //если по фамилии
                 String x = (String) o;
                 strong = getJdbcTemplate().queryForList(sql, x);
+            }
+            else if (o instanceof Date){
+                Date x = formater.parse((String) o); //было Date x = (Date) o;
+                strong = getJdbcTemplate().queryForList(sql,new DoctorsTimetableMapper(),x,x); //getJdbcTemplate().query(sql, new DoctorsTimetableMapper(), date1, date1);
+            }
+            else{
+                logger.warn("Format error. Object format is not correct. Error in the block of doctors' schedule.");
+                return list; //если формат объекта не предусмотрен
             }
             for (Map<String, Object> map : strong) { //получаем Map где ключи это название колонок
                 ArrayList<String> nestedLoop =new ArrayList<>();

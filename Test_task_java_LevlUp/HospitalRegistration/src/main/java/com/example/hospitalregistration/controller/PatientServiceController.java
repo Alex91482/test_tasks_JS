@@ -92,7 +92,7 @@ public class PatientServiceController {
     @RequestMapping(value = "/allRecord",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> returnRecord(){
         List<String> list = patientService.allRecord(); //запрос на список дат все которые есть в репозитории
-        return new ResponseEntity<Object>(list, HttpStatus.OK);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @CrossOrigin
