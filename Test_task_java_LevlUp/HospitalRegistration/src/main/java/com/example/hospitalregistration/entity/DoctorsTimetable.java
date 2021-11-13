@@ -12,4 +12,5 @@ public class DoctorsTimetable {
     private long Id;
     private long doctorId;
     private Date date;
+
 }

@@ -1,6 +1,5 @@
 package com.example.hospitalregistration.dao;
 
-import com.example.hospitalregistration.entity.DoctorsTimetable;
 import com.example.hospitalregistration.mapper.DoctorsTimetableMapper;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,20 +27,28 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
         this.setDataSource(dataSource);
     }
 
-    private static final Logger logger = LogManager.getLogger(PatientDAO.class);
+    private static final Logger logger = LogManager.getLogger(DoctorsTimetableDAO.class);
     private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 
-    public List<ArrayList<String>> getDoctorsTimetableFromMonth(String date){
+    public List<Map<String, Object>>  getDoctorsTimetableFromMonth(String date){
         //вернуть расписание дежурства врачей на месяц, месяц принемает формат гггг.мм.дд
-        List<ArrayList<String>> list = new ArrayList<>();
+        List<Map<String, Object>> list = new ArrayList<>();
         try{
+            if(date == null | date.equals("")){
+                System.out.println("Error date is null" + date);
+                return list;
+            }
             Date date1 = formater.parse(date); //приводим к нужному формату
-            String sql = DoctorsTimetableMapper.BASE_SQL_DOCTORS_TIMETABLE + " WHERE dt.Date >= ?::date and dt.Date < ?::date + '1 month'::interval";
-            list = getDoctorTimetableList(sql,date1);
+            String sql = "SELECT dt.Date, doctor.Last_name, doctor.First_name, doctor.specialization FROM doctors_timetable dt INNER JOIN doctor ON (dt.doctor_id = doctor.id)"
+                    + " WHERE dt.Date >= ? ::date and dt.Date < ? ::date + '1 month'::interval";
+
+            Object[] param = {date1,date1};
+            list = getJdbcTemplate().queryForList(sql,param); //получаем Map где ключи это название колонок
+
         }catch (Exception e){
             logger.warn(e.getMessage());
         }
-        return list; //список хранит объекты DoctorsTimetable в которых содержатся данные за месяц
+        return list; //список хранит мапу где ключи String это название колонок из соедененных таблиц врачи и расписание_врачей
     }
 
     public List<ArrayList<String>> getDoctorsTimetableFromLastName(String doctorLastName){
@@ -68,7 +77,12 @@ public class DoctorsTimetableDAO extends JdbcDaoSupport{
                 strong = getJdbcTemplate().queryForList(sql, x);
             }
             else if (o instanceof Date){
-                Date x = formater.parse((String) o); //было Date x = (Date) o;
+                System.out.println("stage instance");
+                Date x = (Date) o;
+                //Date x =formater.format(one.getTime());
+                //Date x = (Date) o;
+                //String x =formater.format(one.getTime());
+                System.out.println("instance compelite " + x);
                 strong = getJdbcTemplate().queryForList(sql,new DoctorsTimetableMapper(),x,x); //getJdbcTemplate().query(sql, new DoctorsTimetableMapper(), date1, date1);
             }
             else{

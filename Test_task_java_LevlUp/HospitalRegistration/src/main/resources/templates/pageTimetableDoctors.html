@@ -41,12 +41,12 @@
                 <th>Specialization</th>
             </tr>
             </thead>
-            <tbody th:each="doctorInfo : ${doctorInfos}">
-            <tr>
-                <td th:utext="${doctorInfo.}">There is no schedule at this time </td>
-                <td th:utext="${doctorInfo.}"></td>
-                <td th:utext="${doctorInfo.}"></td>
-                <td th:utext="${doctorInfo.}"></td>
+            <tbody>
+            <tr th:each="doctorInfo : ${doctorTimetable}">
+                <td th:text="${doctorInfo.get('date')}">There is no schedule at this time </td>
+                <td th:text="${doctorInfo.get('last_name')}"></td>
+                <td th:text="${doctorInfo.get('first_name')}"></td>
+                <td th:text="${doctorInfo.get('specialization')}"></td>
             </tr>
             </tbody>
         </table>
