@@ -1,18 +1,24 @@
-let currentMonth; //текуший месяц формат гггг.мм.дд
-
 
 function getCurMon(){ //получить текуший месяц
+
     let date = new Date();
-    currentMonth = date;
-    return currentMonth.toString();
+    let d = new Date(date.getFullYear(),date.getMonth(),1);
+    document.getElementById('monthInput').value = d;
+
 }
 
 function getCurMoUp(){ //получить следующий месяц
-    currentMonth.setDate(currentMonth.getMonth()+1);
-    return currentMonth.toString();
+
+    let date = new Date();
+    let d = new Date(date.getFullYear(),date.getMonth()+1,1);
+    document.getElementById('monthInput').value = d;
+
 }
 
-function getCurMoDown(){ //получить предыдущий месяц
-    currentMonth.setDate(currentMonth.getMonth()-1);
-    return currentMonth.toString();
+function getCurMoLater(){ //получить какой месяц через месяц
+
+    let date = new Date();
+    let d = new Date(date.getFullYear(),date.getMonth()+2,1);
+    document.getElementById('monthInput').value = d;
+
 }

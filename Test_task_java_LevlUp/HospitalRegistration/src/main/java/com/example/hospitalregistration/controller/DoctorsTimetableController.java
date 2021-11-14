@@ -41,7 +41,7 @@ public class DoctorsTimetableController {
         return "pageTimetableDoctorsLast"; //возвращаем расписание врача по фамилии доктора
     }
     @RequestMapping(value="/doctorNameTimetable", method = RequestMethod.GET)
-    public String patientFrom(){
+    public String showPageDoctorLastName(){
         return "pageTimetableDoctorsLast"; //возвращаем страницу в которой нужно ввести фамилию доктора
     }
 
@@ -51,12 +51,19 @@ public class DoctorsTimetableController {
         List<Map<String, Object>> list = doctorsTimetableDAO.getDoctorTimetableFromDoctorId(doctorId);
         return new ResponseEntity<>(list, HttpStatus.OK); //возвращаем расписание врачей по id доктора
     }
-
-    @RequestMapping(value = "/doctorTimetable/{month}",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> getDoctorTimetable(@PathVariable(name = "month") String month){
-        List<Map<String, Object>> list = doctorsTimetableDAO.getDoctorsTimetableFromMonth(month);
-        return new ResponseEntity<>(list, HttpStatus.OK); //возвращаем расписание врачей на месяц принимаем строку формата гггг.мм.дд что в принципе не обезательно т.к. происходит приведение к определенному формату
-    }
     */
+    @RequestMapping(value = "/doctorMonthTimetable",method = RequestMethod.POST)
+    public String getPageDoctorMonth(Model model, @RequestParam("monthInput") String month){
+
+        System.out.println(month);
+        
+        //List<Map<String, Object>> list = doctorsTimetableDAO.getDoctorsTimetableFromMonth(month);
+        //model.addAttribute("doctorTimetable", list);
+        return "pageTimetableDoctorsMonth";
+    }
+    @RequestMapping(value = "/doctorMonthTimetable",method = RequestMethod.GET)
+    public String showPageDoctorMonth(){
+        return "pageTimetableDoctorsMonth";
+    }
 
 }
