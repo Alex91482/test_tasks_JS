@@ -3,7 +3,8 @@ function getCurMon(){ //получить текуший месяц
 
     let date = new Date();
     let d = new Date(date.getFullYear(),date.getMonth(),1);
-    document.getElementById('monthInput').value = d;
+    //console.log(d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"}));
+    document.getElementById('dateInput').value = d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"});
 
 }
 
@@ -11,7 +12,8 @@ function getCurMoUp(){ //получить следующий месяц
 
     let date = new Date();
     let d = new Date(date.getFullYear(),date.getMonth()+1,1);
-    document.getElementById('monthInput').value = d;
+    //console.log(d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"}));
+    document.getElementById('dateInput').value = d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"});
 
 }
 
@@ -19,6 +21,6 @@ function getCurMoLater(){ //получить какой месяц через м
 
     let date = new Date();
     let d = new Date(date.getFullYear(),date.getMonth()+2,1);
-    document.getElementById('monthInput').value = d;
-
+    //console.log(d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"}));
+    document.getElementById('dateInput').value = d.toLocaleDateString("en-CA",{year:'numeric',month:"2-digit", day:"2-digit"});
 }
