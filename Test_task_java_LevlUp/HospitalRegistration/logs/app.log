@@ -4588,3 +4588,8 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 2021-11-16 13:45:30.804  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
 2021-11-16 13:45:35.338  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 5.69 seconds (JVM running for 9.804)
 2021-11-16 13:45:35.354  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.s.p.PatientServiceImpl             : File exists: ./src/main/resources/config/saveFile.out
+2021-11-17 00:29:30.350  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Starting HospitalRegistrationApplication using Java 16.0.1 on DESKTOP-UJ9PV2V with PID 1936 (C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration\target\classes started by 1 in C:\Users\kseny\Documents\NetBeansProjects\HospitalRegistration)
+2021-11-17 00:29:30.377 DEBUG DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Running with Spring Boot v2.5.5, Spring v5.3.10
+2021-11-17 00:29:30.377  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : No active profile set, falling back to default profiles: default
+2021-11-17 00:29:35.007  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.HospitalRegistrationApplication    : Started HospitalRegistrationApplication in 6.949 seconds (JVM running for 10.864)
+2021-11-17 00:29:35.007  INFO DESKTOP-UJ9PV2V --- [           main] c.e.h.s.p.PatientServiceImpl             : File exists: ./src/main/resources/config/saveFile.out

@@ -18,12 +18,12 @@ public class DoctorsTimetableController {
     @Autowired
     DoctorsTimetableDAO doctorsTimetableDAO;
 
-    private final DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //такой странный формат используется из за js где локальная дата формируется как dd.MM.yyyy
+    private final DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @RequestMapping(value = "/doctorTimetable", method = RequestMethod.GET)
     public String showToMonthTimetable(Model model){
             //строка format1.format(LocalDate.now().withDayOfMonth(1));
-            // означает что берем локальную дату переводим на первый день месяца и приводим к виду гггг.мм.дд
+            // означает что берем локальную дату переводим на первый день месяца и приводим к виду гггг-мм-дд
         String date = format1.format(LocalDate.now().withDayOfMonth(1));
         List<Map<String, Object>> list = doctorsTimetableDAO.getDoctorsTimetableFromMonth(date);
         model.addAttribute("doctorTimetable", list);
