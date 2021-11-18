@@ -13,11 +13,11 @@ public class DoctorMapper implements RowMapper<Doctor>{
     @Override
     public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        Long id = rs.getLong("Id");
+        Long id = rs.getLong("Id"); //id должно присваиватся автоматически
         String lastName = rs.getString("Last_Name");
         String firstName = rs.getString("First_Name");
         String specialization = rs.getString("Specialization");
 
-        return new Doctor(id, lastName, firstName, specialization);
+        return new Doctor(lastName, firstName, specialization);
     }
 }

@@ -26,19 +26,17 @@ public class PatientDAO extends JdbcDaoSupport {
 
     public List<Patient> getPatient() { //получить всех пациентов
         String sql = PatientMapper.BASE_SQL_PATIENT;
-        Object[] params = new Object[] {};
         PatientMapper mapper = new PatientMapper();
-        List<Patient> list = this.getJdbcTemplate().query(sql, params, mapper);
+        List<Patient> list = this.getJdbcTemplate().query(sql, mapper);
 
         return list;
     }
 
     public Patient findPatient(Long id) { //получить пациента по id
         String sql = PatientMapper.BASE_SQL_PATIENT + " WHERE pa.Id = ? ";
-        Object[] params = new Object[] { id };
         PatientMapper mapper = new PatientMapper();
         try {
-            Patient patient = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            Patient patient = this.getJdbcTemplate().queryForObject(sql, mapper, id);
             return patient;
         } catch (EmptyResultDataAccessException e) {
             logger.warn(e.getMessage());

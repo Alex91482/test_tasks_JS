@@ -55,7 +55,7 @@ public class TimetableDAO extends JdbcDaoSupport {
         long doctorId = timetable.getDoctorId();
         Date date = timetable.getDate(); //to string?
 
-        String sqlSave = "INSERT INTO timetable(Id, Patient_id, Doctor_id, Date) VALUES (?,?,?,?)";
+        String sqlSave = "INSERT INTO timetable(Patient_id, Doctor_id, Date) VALUES (?,?,?)";
         Object[] params = new Object[]{id,patientId,doctorId,date};
         TimetableMapper timetableMapper = new TimetableMapper();
         try {

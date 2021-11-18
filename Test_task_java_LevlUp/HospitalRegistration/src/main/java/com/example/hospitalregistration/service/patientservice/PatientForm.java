@@ -11,6 +11,7 @@ import java.util.Date;
 public class PatientForm {
 
     private final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private SimpleDateFormat formater1 = new SimpleDateFormat("yyyy-MM-dd");
     private static final Logger logger = LogManager.getLogger(PatientForm.class);
 
     //@Getter @Setter
@@ -35,11 +36,14 @@ public class PatientForm {
     @Getter @Setter
     private String toWhichDoctor;
 
+    private Date dateOfVisitFormat_YYYY_MM_DD;
+
     private Date dateOfVisit;
 
     public void setDateOfVisit(String dateFromJson) { //свой сеттер ибо js возвращает строку и ее нужно парсить
         try{
-        dateOfVisit = formater.parse(dateFromJson);
+            dateOfVisit = formater.parse(dateFromJson);
+            dateOfVisitFormat_YYYY_MM_DD = formater1.parse(dateFromJson);
         }catch (Exception e){
             logger.warn(e.getMessage());
         }
@@ -47,5 +51,6 @@ public class PatientForm {
     public Date getDateOfVisit(){ //если свой сеттер то пусть будет свой геттер
         return dateOfVisit;
     }
+    public Date getDateOfVisitFormat_YYYY_MM_DD(){return dateOfVisitFormat_YYYY_MM_DD;}
 
 }

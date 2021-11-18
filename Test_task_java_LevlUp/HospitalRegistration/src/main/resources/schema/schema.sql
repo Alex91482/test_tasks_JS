@@ -1,7 +1,7 @@
 
 CREATE TABLE doctor
 (
-    Id BIGINT PRIMARY KEY,
+    Id BIGSERIAL PRIMARY KEY,
     Last_name VARCHAR(128) NOT NULL,
     First_name VARCHAR(128) NOT NULL,
     Specialization VARCHAR(128) NOT NULL
@@ -33,7 +33,7 @@ CREATE TABLE virtual_patient
 
 CREATE TABLE timetable
 (
-    Id BIGINT PRIMARY KEY,
+    Id BIGSERIAL PRIMARY KEY,
     Patient_id BIGINT NOT NULL,
     Doctor_id BIGINT NOT NULL,
     Date TIMESTAMP NOT NULL,

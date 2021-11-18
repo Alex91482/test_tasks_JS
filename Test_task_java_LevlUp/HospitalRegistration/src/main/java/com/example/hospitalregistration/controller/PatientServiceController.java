@@ -1,8 +1,10 @@
 package com.example.hospitalregistration.controller;
 
 
+import com.example.hospitalregistration.dao.DoctorDAO;
 import com.example.hospitalregistration.dao.PatientDAO;
 import com.example.hospitalregistration.dao.VirtualPatientDAO;
+import com.example.hospitalregistration.dao.TimetableDAO;
 import com.example.hospitalregistration.entity.Patient;
 import com.example.hospitalregistration.entity.VirtualPatient;
 import com.example.hospitalregistration.security.RandomGenerated;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class PatientServiceController {
@@ -50,11 +53,14 @@ public class PatientServiceController {
     public RandomGenerated randomGenerated; //место возможных ошибок
     @Autowired
     public VirtualPatientDAO virtualPatientDAO;
-
+    @Autowired
+    public DoctorDAO doctorDAO;
+    @Autowired
+    public TimetableDAO timetableDAO;
 
     @CrossOrigin
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String savePatient(Model model, @ModelAttribute("patientForm") PatientForm patientForm){
+    public String savePatient(Model model, @ModelAttribute("patientForm") PatientForm patientForm){ //метод по регистрации пациента
         String firstName = patientForm.getFirstName();
         String lastName = patientForm.getLastName();
         int passportSerial = patientForm.getPassportSerial();
@@ -63,19 +69,40 @@ public class PatientServiceController {
         String toWhichDoctor = patientForm.getToWhichDoctor();
         Date dateOfVisit = patientForm.getDateOfVisit();
 
-        boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation);
+        //метод достаточно перегружен и нужно будет распоралелить запись в таблицы и репозитории и если запись в бд
+        //прошла успешно то отправлять письмо
+
+        //если пациент не указал врача то ищем в базе кто дежурит в данный день
+        if (toWhichDoctor.equals("")){
+            toWhichDoctor = doctorDAO.getDoctorByDateAndSpec(patientForm.getDateOfVisitFormat_YYYY_MM_DD(),doctorSpecialisation);
+        }
+
+        boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation); //используется для проверки есть ли в репозитории такая запись
+
         if(dateOfVisit != null && doctorSpecialisation != null && !doesEntry){  //проверяем валидность данных
+
+            //эта часть отвечает за создание записи о пациенте в таблице patient
             Patient patient = new Patient(firstName,lastName,passportSerial,mail,doctorSpecialisation,toWhichDoctor,dateOfVisit);
             patientDAO.savePatient(patient);                                  //сохраняем в бд
 
+            //эта часть отвечает за создание записи в таблице virtual_patient так же за генерацию логина и пароля
             String pass = randomGenerated.genPass(); //генерируем логин и пароль
-            String login = randomGenerated.genLog();
-
+            String login = randomGenerated.genLog(); //пароль нужно зашифровать и сохранить зашифрованный в бд
             virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(),pass,login)); //создание виртуального пациента
 
+            //эта часть отвечает за создание записи в таблице timetable
+            //по всей видимости придется передавать не имя фамилию врача а всю мапу целиком обзывать ее врачем и разбирать на запчасти
+            //timtableDAO.addTimetable(patient.getId(), ?, dateOfVisit);
+
+
+            //эта часть отвечает за резервирование времени в репозитории
             patientService.createRecord(dateOfVisit,doctorSpecialisation);      //сохраняем запись в репозитории чтобы на нее больше нельзя было оформить прием
             savePatientSerImpl.serPatientSerImpl();                             //сериализуем репозиторий
+
+            //отправляем письмо пациенту с данными регистрации
             emailSender.send(new EmailService().sendMail(mail,dateOfVisit,pass,login));    //оживляем почтовый сервис
+
+            //выводим на экран что все удачно
             return "redirect:/pageMailMessage";
         }
         model.addAttribute("errorMessage", errorMessage);
