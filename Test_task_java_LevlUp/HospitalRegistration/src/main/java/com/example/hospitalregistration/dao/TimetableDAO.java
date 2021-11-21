@@ -34,7 +34,22 @@ public class TimetableDAO extends JdbcDaoSupport {
         return list;
     }
 
-    public List<Timetable> getTimetableForDay(String docLastName, String date) { //получение всех зарегистрированных пользователей по фамилии врача и конкретному дню
+    public void addTimetable(Timetable timetable){
+        long patientId = timetable.getPatientId();
+        long doctorId = timetable.getDoctorId();
+        Date date = timetable.getDate(); //to string?
+
+        String sqlSave = "INSERT INTO timetable(Patient_id, Doctor_id, Date) VALUES (?,?,?)";
+        Object[] params = new Object[]{patientId,doctorId,date};
+        //TimetableMapper timetableMapper = new TimetableMapper();
+        try {
+            this.getJdbcTemplate().update(sqlSave,params);
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
+    }
+
+    /*public List<Timetable> getTimetableForDay(String docLastName, String date) { //получение всех зарегистрированных пользователей по фамилии врача и конкретному дню
         List<Timetable> list = new ArrayList<>();
         String sql = TimetableMapper.BASE_SQL_TIMETABLE;
         TimetableMapper mapper = new TimetableMapper();
@@ -47,21 +62,6 @@ public class TimetableDAO extends JdbcDaoSupport {
             logger.warn(e.getMessage());
         }
         return list;
-    }
+    }*/
 
-    public void addTimetable(Timetable timetable){
-        long id =timetable.getId();
-        long patientId = timetable.getPatientId();
-        long doctorId = timetable.getDoctorId();
-        Date date = timetable.getDate(); //to string?
-
-        String sqlSave = "INSERT INTO timetable(Patient_id, Doctor_id, Date) VALUES (?,?,?)";
-        Object[] params = new Object[]{id,patientId,doctorId,date};
-        TimetableMapper timetableMapper = new TimetableMapper();
-        try {
-            this.getJdbcTemplate().update(sqlSave,params,timetableMapper);
-        }catch (Exception e){
-            logger.warn(e.getMessage());
-        }
-    }
 }

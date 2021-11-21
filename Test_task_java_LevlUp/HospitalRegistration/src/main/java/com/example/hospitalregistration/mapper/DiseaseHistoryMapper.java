@@ -12,12 +12,12 @@ public class DiseaseHistoryMapper implements RowMapper<DiseaseHistory> {
 
     @Override
     public DiseaseHistory mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Long id = rs.getLong("Id");;
-        Long patientId = rs.getLong("Patient_id");;
+        //Long id = rs.getLong("Id");
+        Long patientId = rs.getLong("Patient_id");
         Long doctorId = rs.getLong("Doctor_id");
         String diagnosis = rs.getString("Diagnosis");
         String recommendations = rs.getString("Recommendations");
 
-        return new DiseaseHistory(id,patientId,doctorId,diagnosis,recommendations);
+        return new DiseaseHistory(patientId,doctorId,diagnosis,recommendations);
     }
 }

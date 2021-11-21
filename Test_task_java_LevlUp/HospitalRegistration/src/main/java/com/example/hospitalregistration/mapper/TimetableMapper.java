@@ -13,12 +13,12 @@ public class TimetableMapper implements RowMapper<Timetable> {
 
     @Override
     public Timetable mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Long id = rs.getLong("Id");
+        //Long id = rs.getLong("Id");
         Long patientId = rs.getLong("Patient_id");
         Long doctorId = rs.getLong("Doctor_id");
         Date date = rs.getDate("Date");
 
-        return new Timetable(id, patientId, doctorId, date);
+        return new Timetable(patientId, doctorId, date);
     }
 }
 

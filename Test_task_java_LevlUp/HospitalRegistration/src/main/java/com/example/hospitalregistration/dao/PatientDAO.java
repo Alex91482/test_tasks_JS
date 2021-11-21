@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -46,21 +47,21 @@ public class PatientDAO extends JdbcDaoSupport {
 
     public void savePatient(Patient patient){   //добавить пациента в базу
                                                 //добавить автоматическое создание id?
-        String id = patient.getId().toString();
+        Long id = patient.getId();
         String firstName= patient.getFirstName();
         String lastName= patient.getLastName();
         int passportSerial= patient.getPassportSerial();
         String mail= patient.getMail();
-        String dateOfVisit= patient.getDateOfVisit().toString();
+        Date dateOfVisit= patient.getDateOfVisit();
         String doctorSpecialization= patient.getDoctorSpecialization();
         String toWhichDoctor= patient.getToWhichDoctor();
 
         String sqlSave = "INSERT INTO patient(Id, First_name, Last_name, Passport_serial, Mail, Date_of_visit," +
                 " Doctor_specialization, To_which_doctor) VALUES (?,?,?,?,?,?,?,?)";
+
         Object[] params = new Object[]{id,firstName,lastName,passportSerial,mail,dateOfVisit,doctorSpecialization,toWhichDoctor};
-        PatientMapper patientMapper = new PatientMapper();
         try {
-            this.getJdbcTemplate().update(sqlSave,params,patientMapper);
+            this.getJdbcTemplate().update(sqlSave,params);
         }catch (Exception e){
             logger.warn(e.getMessage());
         }

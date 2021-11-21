@@ -21,8 +21,7 @@ public class DiseaseHistory {
     @Getter @Setter
     private String recommendations;
 
-    public DiseaseHistory(long id, long patientId, long doctorId, String diagnosis, String recommendations){
-        this.id = id;
+    public DiseaseHistory(long patientId, long doctorId, String diagnosis, String recommendations){
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.diagnosis = diagnosis;

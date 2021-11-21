@@ -6,8 +6,10 @@ import com.example.hospitalregistration.dao.PatientDAO;
 import com.example.hospitalregistration.dao.VirtualPatientDAO;
 import com.example.hospitalregistration.dao.TimetableDAO;
 import com.example.hospitalregistration.entity.Patient;
+import com.example.hospitalregistration.entity.Timetable;
 import com.example.hospitalregistration.entity.VirtualPatient;
 import com.example.hospitalregistration.security.RandomGenerated;
+import com.example.hospitalregistration.security.jsypt.JasyptUtil;
 import com.example.hospitalregistration.service.mail.EmailService;
 import com.example.hospitalregistration.service.patientservice.PatientForm;
 import com.example.hospitalregistration.service.patientservice.PatientService;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -46,11 +49,13 @@ public class PatientServiceController {
     @Autowired
     public PatientDAO patientDAO;
     @Autowired
-    public JavaMailSender emailSender;
+    public JavaMailSender emailSender; //отправляет письма
+    @Autowired
+    JasyptUtil jasyptUtil;
     @Autowired
     public SavePatientSerImpl savePatientSerImpl;
     @Autowired
-    public RandomGenerated randomGenerated; //место возможных ошибок
+    public RandomGenerated randomGenerated; //генерирует логин и пароль
     @Autowired
     public VirtualPatientDAO virtualPatientDAO;
     @Autowired
@@ -73,8 +78,12 @@ public class PatientServiceController {
         //прошла успешно то отправлять письмо
 
         //если пациент не указал врача то ищем в базе кто дежурит в данный день
+        Long doctorId = 0L;
+
         if (toWhichDoctor.equals("")){
-            toWhichDoctor = doctorDAO.getDoctorByDateAndSpec(patientForm.getDateOfVisitFormat_YYYY_MM_DD(),doctorSpecialisation);
+            Map<String, Object> doctor = doctorDAO.getDoctorByDateAndSpec(patientForm.getDateOfVisitFormat_YYYY_MM_DD(),doctorSpecialisation);
+            toWhichDoctor = doctor.get("last_name") + " " + doctor.get("first_name");
+            doctorId =(Long) doctor.get("id");
         }
 
         boolean doesEntry = patientService.read(dateOfVisit,doctorSpecialisation); //используется для проверки есть ли в репозитории такая запись
@@ -88,11 +97,11 @@ public class PatientServiceController {
             //эта часть отвечает за создание записи в таблице virtual_patient так же за генерацию логина и пароля
             String pass = randomGenerated.genPass(); //генерируем логин и пароль
             String login = randomGenerated.genLog(); //пароль нужно зашифровать и сохранить зашифрованный в бд
-            virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(),pass,login)); //создание виртуального пациента
+            virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(), jasyptUtil.encyptPwd(pass),login)); //создание виртуального пациента
 
             //эта часть отвечает за создание записи в таблице timetable
             //по всей видимости придется передавать не имя фамилию врача а всю мапу целиком обзывать ее врачем и разбирать на запчасти
-            //timtableDAO.addTimetable(patient.getId(), ?, dateOfVisit);
+            timetableDAO.addTimetable(new Timetable(patient.getId(), doctorId, dateOfVisit));
 
 
             //эта часть отвечает за резервирование времени в репозитории

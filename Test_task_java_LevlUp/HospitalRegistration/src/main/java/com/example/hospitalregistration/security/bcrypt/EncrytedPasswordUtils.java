@@ -1,4 +1,4 @@
-package com.example.hospitalregistration.security;
+package com.example.hospitalregistration.security.bcrypt;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

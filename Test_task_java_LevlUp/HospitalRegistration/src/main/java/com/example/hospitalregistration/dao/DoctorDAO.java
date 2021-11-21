@@ -47,18 +47,17 @@ public class DoctorDAO extends JdbcDaoSupport{
         }
     }
 
-    public String getDoctorByDateAndSpec(Date date, String specialization){ //какой врач данной специализации дежурит в данный день
+    public Map<String, Object> getDoctorByDateAndSpec(Date date, String specialization){ //какой врач данной специализации дежурит в данный день
         //пациент не указал к какому врачу он собирается записатся значит ползем в бд и смотрим кто дежурит по расписанию
-        String sql = "SELECT doctor.Last_name, doctor.First_name, doctor.specialization FROM doctors_timetable dt INNER JOIN doctor ON (dt.doctor_id = doctor.id)" +
+        String sql = "SELECT doctor.Id, doctor.Last_name, doctor.First_name, doctor.specialization FROM doctors_timetable dt INNER JOIN doctor ON (dt.doctor_id = doctor.id)" +
                         "WHERE dt.Date = ? and doctor.specialization = ?";
         try{
             Object[] params = {date,specialization};
             Map<String, Object> doctor = this.getJdbcTemplate().queryForMap(sql,params);
-            String nameDoc = doctor.get("last_name") + " " + doctor.get("first_name");
-            return nameDoc;
+            return doctor;
         }catch (Exception e){
             logger.warn(e.getMessage()); //перехватываем ошибку например не верный формат даты
         }
-        return null; //метод должен возвращать фамилию и имя врача в формате строка который дежурит в данный день
+        return null; //метод должен возвращать врача в формате map, полученный врач дежурит в данный день
     }
 }

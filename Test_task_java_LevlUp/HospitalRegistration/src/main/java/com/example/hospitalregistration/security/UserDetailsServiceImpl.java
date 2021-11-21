@@ -2,6 +2,7 @@ package com.example.hospitalregistration.security;
 
 import com.example.hospitalregistration.dao.VirtualPatientDAO;
 import com.example.hospitalregistration.entity.VirtualPatient;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

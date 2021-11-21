@@ -1,7 +1,7 @@
 
 CREATE TABLE doctor
 (
-    Id BIGSERIAL PRIMARY KEY,
+    Id BIGINT PRIMARY KEY,
     Last_name VARCHAR(128) NOT NULL,
     First_name VARCHAR(128) NOT NULL,
     Specialization VARCHAR(128) NOT NULL
@@ -16,9 +16,7 @@ CREATE TABLE patient
     Mail VARCHAR(255) NOT NULL,
     Date_of_visit TIMESTAMP NOT NULL,
     Doctor_specialization VARCHAR(128) NOT NULL,
-    To_which_doctor VARCHAR(128),
-    Encryted_password VARCHAR(128) NOT NULL,
-    Login VARCHAR(128) NOT NULL
+    To_which_doctor VARCHAR(128)
 );
 
 CREATE TABLE virtual_patient
@@ -51,7 +49,7 @@ CREATE TABLE doctors_timetable
 
 CREATE TABLE disease_history
 (
-    Id BIGINT PRIMARY KEY,
+    Id BIGSERIAL PRIMARY KEY,
     Patient_id BIGINT NOT NULL,
     Doctor_id BIGINT NOT NULL,
     Diagnosis TEXT,

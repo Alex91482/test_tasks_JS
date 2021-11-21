@@ -19,8 +19,7 @@ public class Timetable {
     @Getter @Setter
     private Date date;
 
-    public Timetable(Long id, Long patientId,Long doctorId,Date date){
-        this.id = id;
+    public Timetable(Long patientId,Long doctorId,Date date){
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;

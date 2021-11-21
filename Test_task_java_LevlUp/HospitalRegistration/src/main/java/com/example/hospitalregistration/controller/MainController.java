@@ -15,21 +15,30 @@ public class MainController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
+    public String loginPage() {
         return "pageLogin";
     }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginPatientHome(){
+        return "pagePatientPersonalArea";
+    }
 
-    /*@RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    @RequestMapping(value = "/patientHome", method = RequestMethod.GET)
+    public String patientHomePage() {
+        return "pagePatientPersonalArea";
+    }
+
+
+    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
-        return "logoutSuccessfulPage";
-    }*/
+        //model.addAttribute("title", "Logout");
+        return "pagePatientPersonalArea";
+    }
 
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accessDenied(Model model) {
 
-    /*@RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied(Model model, Principal principal) {
-
-        if (principal != null) {
+        /*if (principal != null) {
 
             User loginedUser = (User) ((Authentication) principal).getPrincipal();
             String userInfo = WebUtils.toString(loginedUser);
@@ -39,7 +48,7 @@ public class MainController {
                     + "<br> You do not have permission to access this page!";
             model.addAttribute("message", message);
 
-        }
-        return "403P";
-    }*/
+        }*/
+        return "403";
+    }
 }

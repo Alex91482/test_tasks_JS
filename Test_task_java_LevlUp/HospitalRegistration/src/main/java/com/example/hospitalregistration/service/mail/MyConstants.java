@@ -8,5 +8,5 @@ public class MyConstants {
     public static final String STANDARD_THEME = "Appointment at the clinic";
     public static final String STANDARD_MESSAGE = "The letter was sent using automatic mailing. You do not need to answer it.\n Hello!\n You have left a request for an appointment with a doctor in our clinic. Waiting for you: ";
     public static final String SANDARD_TELLMELOG = "In your personal account, you can find out personal recommendations for treatment.\n Your login: ";
-    public static final String SANDARD_TELLMEPASS = "Your password: ";
+    public static final String SANDARD_TELLMEPASS = " Your password: ";
 }

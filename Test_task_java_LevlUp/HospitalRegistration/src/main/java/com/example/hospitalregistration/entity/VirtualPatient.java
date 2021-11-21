@@ -14,7 +14,7 @@ public class VirtualPatient {
     private String role;
 
     public VirtualPatient(Long patientId, String encrytedPassword, String login){
-        this.id =id;
+        //this.id =id;
         this.patientId = patientId;
         this.encrytedPassword = encrytedPassword;
         this.login = login;

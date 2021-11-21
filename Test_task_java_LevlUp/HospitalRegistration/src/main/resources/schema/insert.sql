@@ -18,15 +18,15 @@ Insert into patient(Id, First_name, Last_name, Passport_serial, Mail, Date_of_vi
 Insert into patient(Id, First_name, Last_name, Passport_serial, Mail, Date_of_visit, Doctor_specialization, To_which_doctor) values (8,'Homer','Simpson',0000112233,'lila.turanga@futurama.com','2021-10-31 9:20','OTOLARYNGOLOGIST','');
 Insert into patient(Id, First_name, Last_name, Passport_serial, Mail, Date_of_visit, Doctor_specialization, To_which_doctor) values (9,'Bender','Rodrigues',0000763490,'bender.rodrigues@futurama.com','2021-10-31 9:40','OTOLARYNGOLOGIST','');
 
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (1, 1, 1, '2021-10-31 9:00');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (2, 2, 1, '2021-10-31 9:20');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (3, 3, 1, '2021-10-31 9:40');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (4, 4, 4, '2021-10-31 9:00');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (5, 5, 4, '2021-10-31 9:20');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (6, 6, 4, '2021-10-31 9:40');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (7, 7, 7, '2021-10-31 9:00');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (8, 8, 7, '2021-10-31 9:20');
-Insert into timetable(Id, Patient_id, Doctor_id, Date) values (9, 9, 7, '2021-10-31 9:40');
+Insert into timetable(Patient_id, Doctor_id, Date) values (1, 1, '2021-10-31 9:00');
+Insert into timetable(Patient_id, Doctor_id, Date) values (2, 1, '2021-10-31 9:20');
+Insert into timetable(Patient_id, Doctor_id, Date) values (3, 1, '2021-10-31 9:40');
+Insert into timetable(Patient_id, Doctor_id, Date) values (4, 4, '2021-10-31 9:00');
+Insert into timetable(Patient_id, Doctor_id, Date) values (5, 4, '2021-10-31 9:20');
+Insert into timetable(Patient_id, Doctor_id, Date) values (6, 4, '2021-10-31 9:40');
+Insert into timetable(Patient_id, Doctor_id, Date) values (7, 7, '2021-10-31 9:00');
+Insert into timetable(Patient_id, Doctor_id, Date) values (8, 7, '2021-10-31 9:20');
+Insert into timetable(Patient_id, Doctor_id, Date) values (9, 7, '2021-10-31 9:40');
 
 Insert into doctors_timetable(Doctor_id, Date) values ( 1,'2021-10-31');
 Insert into doctors_timetable(Doctor_id, Date) values ( 4,'2021-10-31');
@@ -59,12 +59,12 @@ Insert into doctors_timetable(Doctor_id, Date) values ( 1,'2021-11-10');
 Insert into doctors_timetable(Doctor_id, Date) values ( 4,'2021-11-10');
 Insert into doctors_timetable(Doctor_id, Date) values ( 7,'2021-11-10');
 
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (1, 1, 1,'cold','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (2, 2, 1,'gastritis','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (3, 3, 1,'bedsores','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (4, 4, 2,'hyperopia','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (5, 5, 2,'glaucoma','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (6, 6, 2,'myopia','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (7, 7, 5,'diabetes','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (8, 8, 5,'cirrhosis of the liver','');
-Insert into disease_history(Id, Patient_id, Doctor_id, Diagnosis, Recommendations) values (9, 9, 5,'skittle','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (1, 1,'cold','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (2, 1,'gastritis','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (3, 1,'bedsores','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (4, 2,'hyperopia','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (5, 2,'glaucoma','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (6, 2,'myopia','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (7, 5,'diabetes','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (8, 5,'cirrhosis of the liver','');
+Insert into disease_history(Patient_id, Doctor_id, Diagnosis, Recommendations) values (9, 5,'skittle','');
