@@ -9,6 +9,7 @@ import com.example.hospitalregistration.entity.Patient;
 import com.example.hospitalregistration.entity.Timetable;
 import com.example.hospitalregistration.entity.VirtualPatient;
 import com.example.hospitalregistration.security.RandomGenerated;
+import com.example.hospitalregistration.security.bcrypt.EncrytedPasswordUtils;
 import com.example.hospitalregistration.security.jsypt.JasyptUtil;
 import com.example.hospitalregistration.service.mail.EmailService;
 import com.example.hospitalregistration.service.patientservice.PatientForm;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +52,10 @@ public class PatientServiceController {
     public PatientDAO patientDAO;
     @Autowired
     public JavaMailSender emailSender; //отправляет письма
+    //@Autowired
+    //JasyptUtil jasyptUtil;
     @Autowired
-    JasyptUtil jasyptUtil;
+    EncrytedPasswordUtils bCryptPasswordEncoder;
     @Autowired
     public SavePatientSerImpl savePatientSerImpl;
     @Autowired
@@ -97,7 +101,7 @@ public class PatientServiceController {
             //эта часть отвечает за создание записи в таблице virtual_patient так же за генерацию логина и пароля
             String pass = randomGenerated.genPass(); //генерируем логин и пароль
             String login = randomGenerated.genLog(); //пароль нужно зашифровать и сохранить зашифрованный в бд
-            virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(), jasyptUtil.encyptPwd(pass),login)); //создание виртуального пациента
+            virtualPatientDAO.saveVirtualPatient(new VirtualPatient(patient.getId(), bCryptPasswordEncoder.encrytePassword(pass), login)); //создание виртуального пациента
 
             //эта часть отвечает за создание записи в таблице timetable
             //по всей видимости придется передавать не имя фамилию врача а всю мапу целиком обзывать ее врачем и разбирать на запчасти

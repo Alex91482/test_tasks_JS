@@ -5,7 +5,7 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class JasyptUtil {
 
     //@Value("${encrypted.property}")
@@ -30,7 +30,7 @@ public class JasyptUtil {
      * @param value расшифровывает зашифрованный текст
      * @return
      */
-    public String decyptPwd(String password,String value){
+    public String decyptPwd(String password, String value){
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         encryptor.setConfig(cryptor(password));
         String result = encryptor.decrypt(value);

@@ -4,6 +4,7 @@ import com.example.hospitalregistration.dao.VirtualPatientDAO;
 import com.example.hospitalregistration.entity.VirtualPatient;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login)  throws UsernameNotFoundException {
+
         VirtualPatient virtualPatient = this.virtualPatientDAO.findVirtualPatientByLogin(login);
 
         if(virtualPatient == null){
@@ -25,7 +27,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         System.out.println("Found User: " + login);
 
-        UserDetails userDetails = (UserDetails) new VirtualPatient(virtualPatient.getId(), virtualPatient.getPatientId(), virtualPatient.getLogin(), virtualPatient.getEncrytedPassword(), virtualPatient.getRole());
+        UserDetails userDetails = User.builder()
+                .username(virtualPatient.getLogin())
+                .password(virtualPatient.getEncrytedPassword())
+                .roles(virtualPatient.getRole())
+                .build();
+
+        //UserDetails userDetails = (UserDetails) new VirtualPatient(virtualPatient.getId(), virtualPatient.getPatientId(), virtualPatient.getLogin(), virtualPatient.getEncrytedPassword(), virtualPatient.getRole());
         return userDetails;
+
+        //return new VirtualPatient(virtualPatient.getId(), virtualPatient.getPatientId(), virtualPatient.getLogin(), virtualPatient.getEncrytedPassword(), virtualPatient.getRole());
     }
 }
