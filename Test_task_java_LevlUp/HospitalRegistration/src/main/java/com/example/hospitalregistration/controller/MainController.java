@@ -32,7 +32,7 @@ public class MainController {
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
         //model.addAttribute("title", "Logout");
-        return "pagePatientPersonalArea";
+        return "pageHome";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
