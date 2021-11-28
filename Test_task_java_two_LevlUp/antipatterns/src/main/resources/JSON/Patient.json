@@ -1,9 +1,0 @@
-{
-  "firstName" : "Homer",
-  "lastName" : "Simpson",
-  "passportSerial" : "0011010101",
-  "mail" : "homer.simpson@springfield.com",
-  "dateOfVisit" : "30.10.2021",
-  "doctorSpetialisation" : "Therapist",
-  "toWhichDoctor" : ""
-}

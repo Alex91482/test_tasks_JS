@@ -49,8 +49,6 @@ public class PatientServiceController {
     public PatientDAO patientDAO;
     @Autowired
     public JavaMailSender emailSender; //отправляет письма
-    //@Autowired
-    //JasyptUtil jasyptUtil;
     @Autowired
     EncrytedPasswordUtils bCryptPasswordEncoder;
     @Autowired

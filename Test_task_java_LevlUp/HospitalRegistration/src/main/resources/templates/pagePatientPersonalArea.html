@@ -16,21 +16,25 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/registration}">Make an Appointment</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
     </ul>
 </nav>
 <div class="jumbotron text-center">
     <p>Hello this is personal patient cabinet</p>
-    <p>Still empty</p>
 </div>
-<div class="row align-items-md-stretch">
+<div class="row align-items-md-stretch" th:each="history : ${diseaseHistory}">
     <div class="col-md-6">
         <div class="h-100 p-5 bg-light border rounded-3">
-            <h4 class="display-5 text-center">Diagnosis</h4>
+            <h4 class="display-5 text-center" >Diagnosis</h4>
+            <p class="display-5 text-center" th:text="${history.get('diagnosis')}">No diagnosis has been made at the moment </p>
         </div>
     </div>
     <div class="col-md-6">
         <div class="h-100 p-5 bg-light border rounded-3">
             <h4 class="display-5 text-center">Treatment Recommendations </h4>
+            <p class="display-5 text-center" th:text="${history.get('recommendations')}">No recommendations </p>
         </div>
     </div>
 </div>

@@ -45,7 +45,6 @@ public class VirtualPatientDAO extends JdbcDaoSupport {
 
         String sqlSave = "INSERT INTO virtual_patient(Patient_id, Encryted_password, Login, Role) VALUES (?,?,?,?)";
         Object[] params = new Object[]{patientId,encrytedPassword,login,role};
-        //VirtualPatientMapper mapper = new VirtualPatientMapper();
         try {
             this.getJdbcTemplate().update(sqlSave,params);
         }catch (Exception e){

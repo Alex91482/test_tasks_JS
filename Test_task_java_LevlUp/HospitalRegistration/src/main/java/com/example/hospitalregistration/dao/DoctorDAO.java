@@ -43,8 +43,9 @@ public class DoctorDAO extends JdbcDaoSupport{
             Doctor doctor = this.getJdbcTemplate().queryForObject(sql, mapper, id);
             return doctor;
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            logger.warn(e.getMessage());
         }
+        return null;
     }
 
     public Map<String, Object> getDoctorByDateAndSpec(Date date, String specialization){ //какой врач данной специализации дежурит в данный день
