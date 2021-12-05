@@ -16,11 +16,11 @@ import java.util.List;
 public class CoffeeMachineAService implements NavigationBar{
 
     @Autowired
-    BeveragesCoffeeFactory beveragesCoffeeFactory;
+    private BeveragesCoffeeFactory beveragesCoffeeFactory;
     @Autowired
     private CoffeeMachineARepository coffeeMachineARepository;
     @Autowired
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     private CoffeeMachineA getTheLatestEntryCoffeeMachine(){ //метод отвечающий за получение последней записи из бд
         try{
@@ -104,8 +104,13 @@ public class CoffeeMachineAService implements NavigationBar{
         //сохраняем событие в бд
 
         try{
-            coffeeMachineARepository.setFillTheWaterTank("Filling with Water ", new Date(), getTheLatestEntryCoffeeMachine().getFillCoffeeTank());
-            return true; //бак с водой заполнен
+            CoffeeMachineA currentState = getTheLatestEntryCoffeeMachine(); //вызываем текущее сотояние кофеварки
+            if(currentState != null) {
+                coffeeMachineARepository.save(new CoffeeMachineA("Filling with Water ", new Date(), currentState.getMaxWaterLevel(), currentState.getFillCoffeeTank()));
+                return true; //бак с водой заполнен до максимума, кофе осталось в прежнем количестве
+            }else{
+                System.out.println("The last state of the coffee machine was not found. Try to call the command to fill the water tank and the coffee tank at the same time.");
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -119,12 +124,27 @@ public class CoffeeMachineAService implements NavigationBar{
         //сохраняем событие в бд
 
         try{
-            coffeeMachineARepository.setFillCoffeeTank("Filling with Coffee ", new Date(), getTheLatestEntryCoffeeMachine().getFillTheWaterTank());
-            return true; //бак с кофе заполнен
+            CoffeeMachineA currentState = getTheLatestEntryCoffeeMachine(); //вызываем текущее сотояние кофеварки
+            if(currentState != null){
+                coffeeMachineARepository.save(new CoffeeMachineA("Filling with Coffee ", new Date(), currentState.getFillTheWaterTank(),currentState.getMaxCoffeeLevel()));
+                return true; //бак с кофе заполнен до максимума, количество воды осталось на прежнем уровне
+            }else{
+                System.out.println("The last state of the coffee machine was not found. Try to call the command to fill the water tank and the coffee tank at the same time.");
+            }
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    @Override
+    public boolean fillAll(){   //одновремменое заполнение баков с ингредиентами
+        try {
+            coffeeMachineARepository.save(new CoffeeMachineA("Filling All ", new Date(), 1000, 1000));
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
 
     @Override
@@ -133,6 +153,9 @@ public class CoffeeMachineAService implements NavigationBar{
         //запрашиваем из бд уровень воды и наличие кофе
 
         CoffeeMachineA x = getTheLatestEntryCoffeeMachine(); //получаем последнюю запись
+        if(x == null){
+            return "There are no entries. Execute the command to fill the water and coffee tanks."; //записи не найдены
+        }
         return "Water Left: " + x.getFillTheWaterTank() + " (milliliters), Coffee Left: " + x.getFillCoffeeTank() + " (gram).";
     }
 
@@ -149,12 +172,4 @@ public class CoffeeMachineAService implements NavigationBar{
         return new ArrayList<>();
     }
 
-    @Override
-    public boolean offTheCoffeeMachine() {  //выключить кофе машину
-        //удаляем все события из бд
-        //выключаем кофемашину
-
-        //coffeeMachineARepository.save(coffeeMachineA);
-        return true;
-    }
 }
